@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Age Calculator</title>
+</head>
+<body>
+
+    <h2>Age Calculator</h2>
+
+    <form id="ageForm">
+        <label>Enter Date of Birth:</label>
+        <input type="date" id="dob" required>
+        <button type="submit">Calculate Age</button>
+    </form>
+
+    <h3 id="result"></h3>
+
+    <script>
+        function calculateAge(dobString) {
+            const today = new Date();
+            const dob = new Date(dobString);
+
+            let years = today.getFullYear() - dob.getFullYear();
+            let months = today.getMonth() - dob.getMonth();
+            let days = today.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += previousMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            return { years, months, days };
+        }
+
+        document.getElementById("ageForm").addEventListener("submit", function(e) {
+            
+            e.preventDefault();
+
+            const dobValue = document.getElementById("dob").value;
+
+            if (!dobValue) {
+                alert("Please select your date of birth");
+                return;
+            }
+
+            const age = calculateAge(dobValue);
+
+            document.getElementById("result").innerText =
+                `You are ${age.years} Years ${age.months} Months ${age.days} Days old`;
+        });
+    </script>
+
+</body>
+</html>

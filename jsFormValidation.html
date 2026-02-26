@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap (optional for demo background) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Form Validation Example</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    form { max-width: 400px; margin: auto; }
+    input { width: 100%; padding: 10px; margin: 5px 0 15px 0; }
+    .error { color: red; font-size: 0.9em; margin-top: -10px; margin-bottom: 10px; }
+    .success { color: green; }
+    button { padding: 10px 20px; }
+</style>
+</head>
+<body>
+
+
+    <div class="value" id="value"></div>
+    <hr />
+    <div class="value" id="value1"></div>
+
+<div class="container">
+
+<h2>Signup Form</h2>
+
+<form id="signupForm" novalidate>
+
+    <label>Name:</label>
+    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your Name">
+    <div class="error" id="nameError"></div>
+
+    <label>Email:</label>
+    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email">
+    <div class="error" id="emailError"></div>
+
+    <label>Password:</label>
+    <input type="password" name="password" class="form-control" id="password" placeholder="Enter your Password">
+    <div class="error" id="passwordError"></div>
+
+    <label>Confirm Password:</label>
+    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm your Password">
+    <div class="error" id="confirmPasswordError"></div>
+
+    <label>Phone Number:</label>
+    <input type="tel" maxlength="10" name="number" class="form-control" id="phone" placeholder="Enter your Phone">
+    <div class="error" id="phoneError"></div>
+
+    <button class="btn btn-info mt-2" type="submit">Signup</button>
+    <br />
+    <div id="formMessage" class="mt-2"></div>
+    <div class="formData mt-2" id="formData"></div>
+</form>
+
+</div>
+
+<!-- <script src="validation.js"></script> -->
+
+<script>
+    
+    document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("#signupForm");
+
+    const fields = {
+        name: document.querySelector("#name"),
+        email: document.querySelector("#email"),
+        password: document.querySelector("#password"),
+        confirmPassword: document.querySelector("#confirmPassword"),
+        phone: document.querySelector("#phone"),
+    };
+
+    const errors = {
+        name: document.querySelector("#nameError"),
+        email: document.querySelector("#emailError"),
+        password: document.querySelector("#passwordError"),
+        confirmPassword: document.querySelector("#confirmPasswordError"),
+        formMessage: document.querySelector("#formMessage"),
+        phone: document.querySelector("#phoneError")
+    };
+
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+
+    function validateForm() {
+        let isValid = true; // flag variable // assume karo form initially valid hai
+
+        // Clear previous errors
+        Object.values(errors).forEach(e => e.textContent = "");
+
+        // Name validation
+        if(fields.name.value.trim() === "") {
+            errors.name.textContent = "Name is required";
+            isValid = false;
+        } else if(fields.name.value.trim().length < 3) {
+            errors.name.textContent = "Name must be at least 3 characters";
+            isValid = false;
+        }
+
+        // Email validation
+        if(fields.email.value.trim() === "") {
+            errors.email.textContent = "Email is required";
+            isValid = false;
+        // } else if(!validateEmail(fields.email.value.trim())) {
+            errors.email.textContent = "Invalid email address";
+            isValid = false;
+        }
+
+        // Password validation
+        if(fields.password.value === "") {
+            errors.password.textContent = "Password is required";
+            isValid = false;
+        } else if(fields.password.value.length < 6) {
+            errors.password.textContent = "Password must be at least 6 characters";
+            isValid = false;
+        }
+
+        // Confirm Password validation
+        if(fields.confirmPassword.value === "") {
+            errors.confirmPassword.textContent = "Please confirm your password";
+            isValid = false;
+        } else if(fields.confirmPassword.value !== fields.password.value) {
+            errors.confirmPassword.textContent = "Passwords do not match";
+            isValid = false;
+        }
+
+        // Phone validation
+        if(fields.phone.value.trim() === "") {
+            errors.phone.textContent = "Phone number is required";
+            isValid = false;
+        } else if(!/^[6-9]\d{9}$/.test(fields.phone.value.trim())) {
+            errors.phone.textContent = "Enter valid 10-digit phone number";
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+         const formData = document.querySelector("#formData");
+         console.log(fields.name.value);
+         let html = "";
+        if(validateForm()) {
+            errors.formMessage.textContent = "Signup successful!";
+            errors.formMessage.className = "success";
+
+            Object.entries(fields).forEach(([key, field]) => {
+            html += `<p><strong>${key.toUpperCase()}:</strong> ${field.value}</p>`;
+            });
+
+            formData.innerHTML = html;
+            form.reset();
+
+        } else {
+            errors.formMessage.textContent = "Please fix the errors above";
+            errors.formMessage.className = "error";
+        }
+    });
+});
+
+</script>
+
+
+<script>
+
+    // Object.values(obj) ek JavaScript ka built-in method hai jo sirf object ki values ko array me return karta hai, keys nahi.
+    
+    const personDetails = {
+           name:"Er. Prabhat Pandit",
+           age: 30,
+           education: "Engineering",
+           profile: "Software Developer",
+           city: "Darbhanga",
+    };
+
+
+    const textData = document.querySelector("#value");
+
+    let html = "";
+
+    Object.values(personDetails).forEach((d) => {
+        html += `<p>${d}</p>`;
+    });
+
+    textData.innerHTML = html;
+
+
+    const valuesArray = Object.values(personDetails);
+
+
+
+    const textData1 = document.querySelector("#value1");
+    let html1 = "";
+
+    Object.entries(personDetails).forEach(([key, value]) => {
+        html1 += `<p>${value}</p>`;
+    });
+
+    textData1.innerHTML = html1;
+
+
+    // const valuesArray = Object.values(personDetails);
+
+    console.log(valuesArray);
+
+    
+    // Object.keys(obj) ek JavaScript ka built-in method hai jo sirf object ki keys ko array me return karta hai, values nahi.
+
+    const keysArray = Object.keys(personDetails);
+    console.log(keysArray);
+
+
+    const people = [
+        {name:"Prabhat Pandit", age:33},
+        {name:"Pooja kumari", age:39},
+        {name:"Pankaj Sharma", age:50},
+        {name:"Pradeep kumar", age:43},
+        {name:"Ram Kumar", age:50},
+        {name:"Amar Sharma", age:60},
+    ];
+
+   const peopleName = people.filter(x => x.age > 40).map(x => x.name); // only "Name Array" of the People.
+
+   const peopleAge = people.filter(x => x.age > 40).map(x => x.age); // only "Age Array" of the People.
+
+   console.log(peopleName);  // Best
+   console.log(peopleAge);  //Best
+
+
+
+   const peopleDetials = [
+        {name:"Prabhat Pandit", age:33},
+        {name:"Pooja kumari", age:39},
+        {name:"Pankaj Sharma", age:50},
+        {name:"Pradeep kumar", age:43},
+        {name:"Ram Kumar", age:50},
+        {name:"Amar Sharma", age:60},
+        {name:"Prabhat Pandit", age:23},
+        {name:"Pooja kumari", age:19},
+        {name:"Ram Kumar", age:20},
+    ];
+
+    const uniqurArrayOfObject = [];
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

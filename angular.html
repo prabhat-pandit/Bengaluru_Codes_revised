@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .black-selected { background: black; color: white; }
+        .black-selected { 
+            background: black; 
+            color: white; 
+        }
+        .mood-buttons {
+            margin-top: 20px;
+        }
+        .mood-button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .selected {
+            background: red;
+            color: white;
+            border: 2px solid #333;
+        }
+        .cards{
+            margin-top: 20px; 
+            padding: 10px; 
+            background: #f0f0f0;
+        }
+        .bg{
+            background: #c82020;
+        }
+        .mood-card{
+          width: 260px;
+          border-radius: 14px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+          border: none;
+          margin-top: 20px;
+        }
+
+        .bg-see{
+          background: linear-gradient(135deg, #c82020, #7a0f0f);
+        }
+
+        .opacity-75{
+          opacity: 0.85;
+        }
+
+    </style>
+</head>
+<body ng-controller="testCtrl" ng-class="{'bg-dark text-white': dark}">
+
+
+    <div class="container mt-4 mb-4">
+        
+
+    <h1>{{data.title}}</h1>
+    
+
+    <!-- Mood Selection Buttons -->
+  <div class="mood-buttons">
+    <button 
+      ng-repeat="mood in data.moods"
+      ng-click="selectMood(mood)"
+      ng-class="{'selected': data.selected && data.selected.name == mood.name}"
+      class="mood-button btn btn-info">
+      <span class="emoji">{{mood.emoji}}</span>
+      <span class="label">{{mood.label}}</span>
+    </button>
+
+    <div 
+          ng-if="data.selected"
+          class="card mood-card mx-auto"
+          ng-class="{'bg-see text-white': dark}"
+        >
+          <div class="card-body text-center p-3">
+            <div class="fs-1">{{data.selected.emoji}}</div>
+
+            <h5 class="fw-bold mt-1">
+              {{data.selected.label}}
+            </h5>
+
+            <p class="mb-0 small opacity-75">
+              {{getDisplayText()}}
+            </p>
+          </div>
+    </div>
+
+
+    <!-- Message -->
+    <div style="text-align: center; font-size: 25px;">
+      {{getDisplayText()}}
+    </div>
+
+    <p ng-if="!data.selected" class="text-muted text-left">
+        Select a mood to continue 👆
+    </p>
+
+
+    <h1 ng-if="!data.selected" style="text-align: center; font-size: 25px;">Please Select!!</h1>
+
+
+    <button class="btn btn-secondary" ng-click="darkMode()">
+     {{ dark ? 'Light Mode' : 'Dark Mode' }}
+   </button>
+
+
+
+    <button 
+      class="btn btn-danger mt-3 mb-3"
+      ng-click="reset()"
+      ng-if="data.selected"
+    >
+    Reset Now
+    </button>
+
+  </div>   
+
+    </div>
+    
+    <script>
+        var app = angular.module('testApp', []);
+        
+        app.controller('testCtrl', function($scope) {
+            $scope.selected = null;
+            $scope.dark = false;
+
+
+            // Initial data
+          $scope.data = {
+            title: 'How are you feeling today?',
+            moods: [
+                  {name:'happy', emoji:'😊', label:'Happy'},
+                  {name:'sad', emoji:'😔', label:'Sad'},
+                  {name:'excited', emoji:'🤩', label:'Excited'},
+                  {name:'stressed', emoji:'😰', label:'Stressed'},
+                  {name:'tired', emoji:'🥱', label:'Tired'}
+                ],
+            selected: null
+          };
+
+            
+            $scope.selectMood = function(mood) {
+                // $scope.data.selected = mood;  // Data change
+                // Angular automatically updates ng-class!
+
+                if($scope.data.selected === mood){
+                    $scope.data.selected = null;
+                }
+                else{
+                    $scope.data.selected = mood;
+                }
+            };
+
+            $scope.getDisplayText = function(){
+
+                if (!$scope.data.selected) {
+                   return ''; // kuch bhi mat dikhao
+                }
+
+
+
+                var mood = $scope.data.selected;
+
+                // Different messages for different moods
+                var messages = {
+                          happy: 'Awesome! You are happy 😊 We will assist you cheerfully!',
+                          sad: 'Feeling sad 😔 Don’t worry, we are here to support you.',
+                          excited: 'Wow! You are excited 🤩 Let’s make this even better!',
+                          stressed: 'You seem stressed 😰 Take a deep breath, we will handle this calmly.',
+                          tired: 'You look tired 🥱 Please relax, we will keep things simple for you.'
+                        };
+
+
+                return messages[mood.name] || ("Selected Mood  " + mood.label);
+
+            };
+
+            $scope.reset = function(){
+               $scope.data.selected = null;
+            };
+
+            $scope.darkMode =  function(){
+                $scope.dark = !$scope.dark;
+            };
+        });
+    </script>
+    
+</body>
+</html>
+
+https://chat.deepseek.com/a/chat/s/1cde8eb8-7a73-4090-9674-2cbc063a2da3

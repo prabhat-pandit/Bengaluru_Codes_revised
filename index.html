@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Er. Prabhat Pandit</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px 0;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 20px 20px 20px 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 20px;
+            corner-shape:scoop;
+            /*corner-shape:notch;*/
+            /*corner-shape:bevel;*/
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .card-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .badge {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        
+        .card-1 {
+            border-top: 5px solid #6a11cb;
+        }
+        
+        .card-2 {
+            border-top: 5px solid #2575fc;
+        }
+        
+        .card-3 {
+            border-top: 5px solid #ff7e5f;
+        }
+        
+        .card-4 {
+            border-top: 5px solid #2af598;
+        }
+        
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .icon-1 {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        }
+        
+        .icon-2 {
+            background: linear-gradient(45deg, #2575fc, #2af598);
+        }
+        
+        .icon-3 {
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+        }
+        
+        .icon-4 {
+            background: linear-gradient(45deg, #2af598, #009efd);
+        }
+        
+        .btn-card {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-card:hover {
+            transform: scale(1.05);
+            color: white;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--dark-color);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .card {
+                margin-bottom: 30px;
+            }
+        }
+
+        .card.active{
+            background: dodgerblue;
+            color: #fff;
+            box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.5);
+        }
+
+
+
+        .alert-animate {
+    animation: slideFade 0.4s ease-in-out;
+}
+
+@keyframes slideFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1><i class="fas fa-layer-group me-3"></i>Awesome Bootstrap Cards</h1>
+            <p class="mb-0">Four responsive cards showcasing Bootstrap 5 features</p>
+        </div>
+
+
+
+        <div class="mt-5 mb-5">
+            
+             <label>Enter The Number to see The Next Three Positive Numbers:</label>
+              <input type="text"
+                 class="form-control"
+                 placeholder="Enter a Positive Number"
+                 id="input-field" 
+              >
+            <button class="btn btn-warning mt-3 mb-3">
+                See The Details
+            </button>
+           <br />
+           <div id="result"></div>
+
+        </div>
+        
+        <!-- Cards Row -->
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-1">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="Web Development">
+                        <div class="icon-wrapper position-absolute top-0 start-0 m-3 icon-1">
+                            <i class="fas fa-code"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Web Development</h5>
+                        <p class="card-text">Learn how to build modern, responsive websites using HTML, CSS, and JavaScript. Master frameworks like React and Bootstrap.</p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">HTML5</span>
+                            <span class="badge bg-info">CSS3</span>
+                            <span class="badge bg-warning">JavaScript</span>
+                            <span class="badge bg-success">Bootstrap</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-card">Learn More</a>
+                            <div class="text-muted">
+                                <i class="far fa-clock me-1"></i> 8 weeks
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-2">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=765&q=80" class="card-img-top" alt="UI/UX Design">
+                        <div class="icon-wrapper position-absolute top-0 start-0 m-3 icon-2">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">UI/UX Design</h5>
+                        <p class="card-text">Create beautiful and user-friendly interfaces. Learn design principles, prototyping, and user research methodologies.</p>
+                        <div class="mb-3">
+                            <span class="badge bg-f">Figma</span>
+                            <span class="badge bg-a">Adobe XD</span>
+                            <span class="badge bg-s">Sketch</span>
+                            <span class="badge bg-react">React</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-card">Start Course</a>
+                            <div class="text-muted">
+                                <i class="fas fa-users me-1"></i> 1.5k enrolled
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-3">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1137&q=80" class="card-img-top" alt="Data Science">
+                        <div class="icon-wrapper position-absolute top-0 start-0 m-3 icon-3">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Data Science</h5>
+                        <p class="card-text">Dive into data analysis, machine learning, and statistical modeling. Work with Python, R, and data visualization tools.</p>
+                        <div class="mb-3">
+                            <span class="badge bg-python">Python</span>
+                            <span class="badge bg-info">R</span>
+                            <span class="badge bg-warning">SQL</span>
+                            <span class="badge bg-t">Tableau</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-card">View Details</a>
+                            <div class="text-muted">
+                                <i class="fas fa-star text-warning me-1"></i> 4.8/5.0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-4">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" class="card-img-top" alt="Mobile Development">
+                        <div class="icon-wrapper position-absolute top-0 start-0 m-3 icon-4">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Mobile Development</h5>
+                        <p class="card-text">Build native and cross-platform mobile applications for iOS and Android using Swift, Kotlin, and React Native.</p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">React Native</span>
+                            <span class="badge bg-info">Flutter</span>
+                            <span class="badge bg-dark">Swift</span>
+                            <span class="badge bg-android">Kotlin</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="#" class="btn btn-card">Enroll Now</a>
+                            <div class="text-muted">
+                                <i class="fas fa-certificate text-success me-1"></i> Certificate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+     <!-- LEFT: INCIDENT LIST -->
+  <div class="col-md-5">
+    <div class="incident-list">
+
+      <div ng-repeat="inc in c.data.incidents"
+           ng-click="c.selectIncident(inc)"
+           ng-class="{'active': inc === c.data.selectedIncident}"
+           class="incident-card"
+           ng-style="{'background-color': inc.bgColor, 'color':'white'}">
+
+        <div class="inc-number">{{inc.number}}</div>
+        <div class="inc-desc">{{inc.short_description}}</div>
+
+        <div class="inc-footer">
+          <span class="priority">Priority: {{inc.priority}}</span>
+          <span class="state">{{inc.state}}</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- LEFT: INCIDENT LIST -->
+
+
+
+
+    <!-- RIGHT: INCIDENT DETAILS -->
+  <div class="col-md-7" ng-if="c.data.selectedIncident">
+
+    <div class="incident-details-card">
+      <h4>Incident Details</h4>
+
+      <p><b>Number:</b> {{c.data.selectedIncident.number}}</p>
+      <p><b>State:</b> {{c.data.selectedIncident.state}}</p>
+      
+      
+      <label>Change Incident Number:</label>
+      <input type="text"
+         class="form-control"
+         placeholder="Short Description"
+         ng-model="c.data.selectedIncident.number"
+      >
+      <br />
+
+      <label>Change Priority</label>
+      <select class="form-control"
+              ng-model="c.data.selectedIncident.priority">
+        <option value="1">Critical</option>
+        <option value="2">High</option>
+        <option value="3">Moderate</option>
+        <option value="4">Low</option>
+        <option value="5">Planning</option>
+      </select>
+      <br />
+      <label>Change Short Description:</label>
+      <input type="text"
+         class="form-control"
+         placeholder="Short Description"
+         ng-model="c.data.selectedIncident.short_description"
+      >
+      <br />
+      <label>Change Background Color</label>
+      <select class="form-control"
+              ng-model="c.data.selectedIncident.bgColor">
+        <option value="">Default</option>
+        <option value="red">Red</option>
+        <option value="pink">Pink</option>
+        <option value="yellow">Yellow</option>
+        <option value="blue">Blue</option>
+        <option value="teal">Teal</option>
+        <option value="dodgerblue">Dodgerblue</option>
+        <option value="magenta">Magenta</option>
+        <option value="tomato">Tomato</option>
+      </select>
+
+      <p class="ui-note">
+        ⚠️ This change is UI-only (not saved to server)
+      </p>
+      <button class="btn btn-danger" ng-click="c.hideIncidentCard()">Hide The Card</button>
+    </div>
+
+  </div>
+  <!-- RIGHT: INCIDENT DETAILS -->
+
+
+
+
+
+
+https://chat.deepseek.com/a/chat/s/4aa60f5b-8fea-4f56-8674-dc569eb0e999
+
+
+https://chat.deepseek.com/a/chat/s/372e1048-490e-491d-ac7d-af394180e2a2
+
+    
+Flat no 304, #269. 2nd Cross, Reliable Residency Layout, Harlur, Bengaluru 560102
+
+
+https://chat.deepseek.com/a/chat/s/f9401a88-cf6c-4c2e-be0f-ca1df3aa9697
+
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Created with <i class="fas fa-heart text-danger"></i> By Er. Prabhat Pandit</p>
+            <p class="mb-0">Full Web Development Tutorials Coming Soon!</p>
+        </div>
+    </div>
+
+
+    <button onclick="celebrate()">Get Award 🏆</button>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function(){
+
+           const input_Value = document.querySelector("#input-field");
+           
+
+
+           function showAlert(message, type="danger"){
+            const result = document.querySelector("#result");
+            result.innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show alert-animate" role="alert">
+                   <h5>${message}</h5>
+                   <button type="button" class="btn-close data-bs-dismiss="alert"></button>
+                </div>
+            `;
+           };
+           
+
+        document.querySelector(".btn-warning").addEventListener("click", function(){
+
+            var userInput = Number(input_Value.value);
+
+            // Empty / invalid
+            if(input_Value.value.trim() === "" || isNaN(userInput)){
+                showAlert('Please Enter a Valid Number ⚠️', "danger");
+                input_Value.value = ""; // Input field empty
+                input_Value.focus(); // Input focus automatically
+                return;
+            }
+            
+            // ❌ block -0
+            if(Object.is(userInput, -0)){
+                showAlert('Negative zero (-0) is not allowed ⚠️', "danger");
+                input_Value.value = ""; // Input field empty
+                input_Value.focus(); // Input focus automatically
+                return;
+            }
+
+            // ❌ block zero & negative
+            if(userInput < 0){
+                showAlert('Only positive numbers (> 0) allowed ⚠️', "warning");
+                input_Value.value = ""; // Input field empty
+                input_Value.focus(); // Input focus automatically
+                return;
+            }
+            showAlert(`Here are the Next Three Positive Numbers of ${userInput}: ${userInput + 1}, ${userInput + 2}, ${userInput + 3}`, "success");
+            startRain(); // confetti Effect for better UI and celebration.
+            console.log(userInput);
+        });
+
+        });
+
+    </script>
+
+    
+    <script>
+        // Add some interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event to all card buttons
+            const buttons = document.querySelectorAll('.btn-card');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const cardTitle = this.closest('.card').querySelector('.card-title').textContent;
+                    alert(`You clicked on "${cardTitle}" card!`);
+                    const card = this.closest('.card');
+                    //card.remove(); // Saaf saaf specific card delete ho jayega
+                });
+            });
+            
+            // Add badge colors for technologies
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach(badge => {
+                const text = badge.textContent;
+                if(text === 'Python') badge.style.backgroundColor = '#3776ab';
+                else if(text === 'React Native') badge.style.backgroundColor = '#61dafb';
+                else if(text === 'React') badge.style.backgroundColor = '#61d454';
+                else if(text === 'Flutter') badge.style.backgroundColor = '#02569b';
+                else if(text === 'Swift') badge.style.backgroundColor = '#F05138';
+                else if(text === 'Kotlin') badge.style.backgroundColor = '#7F52FF';
+                else if(text === 'Figma') badge.style.backgroundColor = '#F24E1E';
+                else if(text === 'Adobe XD') badge.style.backgroundColor = '#FF61F6';
+                else if(text === 'Sketch') badge.style.backgroundColor = '#F7B500';
+                else if(text === 'Tableau') badge.style.backgroundColor = '#F76';
+            });
+
+
+            // Add click event to all cards
+            // clicking on a specific card make it active. i mean add a background color.
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    // Remove from ALL cards
+                    cards.forEach(function(c){
+                        c.classList.remove("active");
+                    });
+                    //card.classList.add("active"); // yaa toh "card" lo
+                    // Add to clicked card
+                    //this.classList.add("active"); // yaa toh "this" keyword lo dono kaam karega
+                    e.currentTarget.classList.add("active"); // yaa toh "this" keyword lo dono kaam karega
+                    // alert("Hello");
+                    
+                });
+            });
+
+        });
+    </script>
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+    <!-- <script>
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    </script> -->
+
+
+    <script>
+      // function celebrate() {
+      //   confetti({
+      //     particleCount: 200,
+      //     spread: 300,
+      //     startVelocity: 40,
+      //     angle: 90,
+      //     origin: { x: 0.5, y: 0 }
+      //     // origin: { y: 0.7 }
+      //   });
+      // }
+
+
+        // const duration = 5 * 1000;
+        // const end = Date.now() + duration;
+
+        // (function frame() {
+        //   confetti({
+        //     particleCount: 4,
+        //     angle: 90,
+        //     spread: 160,
+        //     startVelocity: 20,
+        //     gravity: 1,
+        //     scalar: 1,
+        //     origin: {
+        //       x: Math.random(),
+        //       y: -0.1
+        //     }
+        //   });
+
+        //   if (Date.now() < end) {
+        //     requestAnimationFrame(frame);
+        //   }
+        // })();
+
+
+
+        function startRain() {
+          const end = Date.now() + 3000;
+
+          (function rain() {
+            confetti({
+              particleCount: 6,
+              angle: 90,
+              spread: 180,
+              startVelocity: 20,
+              gravity: 1,
+              scalar: 1,
+              decay: 0.94,
+              zIndex: 9999,
+              origin: { x: Math.random(), y: 0.1 }
+            });
+
+            if (Date.now() < end) requestAnimationFrame(rain);
+          })();
+        }
+
+    </script>
+
+    <!-- <script>
+      let duration = 2 * 1000;
+      let end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      })();
+    </script> -->
+
+
+
+
+<!-- <script>
+function premiumConfettiRain() {
+  const duration = 6 * 1000; // 6 sec
+  const animationEnd = Date.now() + duration;
+
+  const defaults = {
+    startVelocity: 18,
+    spread: 360,
+    ticks: 200,
+    gravity: 0.6,
+    decay: 0.94,
+    scalar: 0.9,
+    zIndex: 9999
+  };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(function () {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    const particleCount = 4;
+
+    // Left side
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: {
+        x: randomInRange(0.1, 0.3),
+        y: 0
+      }
+    });
+
+    // Right side
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: {
+        x: randomInRange(0.7, 0.9),
+        y: 0
+      }
+    });
+
+  }, 200);
+}
+
+// Auto run on page load
+window.onload = premiumConfettiRain;
+</script>
+ -->
+
+
+
+</body>
+</html>

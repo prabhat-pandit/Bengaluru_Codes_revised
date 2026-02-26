@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScript Function</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-5">
+
+  <h1 class="text-center mb-4">
+    JavaScript Function Returning Single & Multiple Values
+  </h1>
+
+  <div class="text-center">
+    <button class="btn btn-primary" onclick="showData()">Show Data</button>
+  </div>
+
+  <div class="mt-4 text-center">
+    <h4 id="singleResult"></h4>
+    <h4 id="multiResult"></h4>
+  </div>
+
+
+  <div class="mt-4 text-center">
+    <h4 id="result"></h4>
+  </div>
+
+  <div class="mt-4 text-center">
+    <h4 id="circle"></h4>
+  </div>
+
+
+  <div class="container">
+  	<label for="radius" class="mt-2 mb-2">Enter Radius of a Circle</label>
+  	<div class="input-group">
+  		<input type="text" class="form-control" placeholder="Enter Radius of a Circle..." id="radius">
+  	</div>
+  	<div class="mt-3 mb-3">
+  		<button class="btn btn-warning" id="calRadius">Calculate Now</button>
+  	</div>
+
+  	<div class="mt-4 text-center">
+    <h4 id="circle_one"></h4>
+    </div>
+
+  </div>
+
+  <script>
+  	
+  	document.addEventListener("DOMContentLoaded", function(){
+  		
+  		const btn = document.querySelector("#calRadius");
+
+  		btn.addEventListener("click", function(){
+
+
+  			
+  			const inputValue = document.querySelector("#radius");
+  			const output = Number(inputValue.value);
+
+  			if(inputValue.value.trim() === "" || isNaN(output)){
+  				alert("Please Enter a Positive Number");
+  				return;
+  			}
+  			if(Object.is(output, -0)){
+  				alert(`Negative (-${output}) Zero is not Allowed`);
+  				return;
+  			}
+  			if(output <= 0){
+  				alert(`Negative (${inputValue.value}) OR "Zero" is not Allowed`);
+  				return;
+  			}
+  			DataOfCircleOne(output);
+
+  		});
+
+  	});
+
+
+
+  // function returning multiple values. means a function returning Object
+  // 🔹 Multiple Values Function //  koi javaScript function jab bhi multiple value return karega toh woh humesha hi "object" ke form mein hi return karega. bas
+
+  function circleOne(radius){
+   
+   const area = (Math.PI * radius * radius);
+   const circumference = (2 * Math.PI * radius);
+   const diameter = (2 * radius);
+
+   // Returning ab Object Now(Multiple Values)
+   return{
+   	area: area.toFixed(2),
+   	circumference: circumference.toFixed(2),
+   	diameter: diameter.toFixed(2),
+   };
+
+   }
+
+
+ function DataOfCircleOne(circleRadius){
+
+ 	const outputText = document.querySelector("#circle_one");
+ 	console.log(outputText);
+
+ 	console.log(document.querySelector("#circle_one"));
+
+ 	const datas = circleOne(circleRadius); // uska value hume aise hi milta hai
+ 	console.log(datas);
+
+ 	outputText.innerText = "Area: " + datas.area + " | " + "Circumference: " + datas.circumference + " | " + "Diameter:" + datas.diameter;
+
+
+ 	outputText.innerHTML =`<div class="row">
+		  <div class="col-sm-4 mb-3 mb-sm-0">
+		    <div class="card bg-info">
+		      <div class="card-body">
+		        <h5 class="card-title">Area of a Circle:</h5>
+		        <p class="card-text">${datas.area}</p>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="col-sm-4">
+		    <div class="card bg-warning">
+		      <div class="card-body">
+		        <h5 class="card-title">Circumference of a Circle:</h5>
+		        <p class="card-text">${datas.circumference}</p>
+		      </div>
+		    </div>
+		  </div>
+
+ 	      <div class="col-sm-4">
+		    <div class="card bg-danger text-white">
+		      <div class="card-body">
+		        <h5 class="card-title">Diameter of a Circle:</h5>
+		        <p class="card-text">${datas.diameter}</p>
+		      </div>
+		    </div>
+		  </div>
+
+    </div>`;
+ };
+
+</script>
+
+
+
+
+  <script>
+
+    // 🔹 Single Value Function
+    function singleValueFunction(name){
+      return name;
+    }
+
+    // 🔹 Multiple Values Function //  koi javaScript function jab bhi multiple value return karega toh woh humesha hi "object" ke form mein hi return karega. bas
+    function returningMultipleValues(name, age, city, salary){
+      return {
+        name: name,
+        age: age,
+        city: city,
+        salary: salary
+      };
+    }
+
+    function showData(){
+
+      // Single value call
+      const single = singleValueFunction("Prabhat");
+
+      document.getElementById("singleResult").innerText =
+        "Single Value: " + single;
+
+      // Multiple value call
+      const person = returningMultipleValues("Prabhat", 32, "Darbhanga", 50000);
+
+      document.getElementById("multiResult").innerText =
+        "Name: " + person.name +
+        " | Age: " + person.age +
+        " | City: " + person.city +
+        " | Salary: " + person.salary;
+    }
+
+
+
+    function rectangle(length, width) {
+
+    let area = length * width;
+    let perimeter = 2 * (length + width);
+
+    return {
+        area: area,
+        perimeter: perimeter
+    };
+}
+
+
+ function showOutput(){
+
+ 	const output = document.querySelector("#result");
+
+ 	const calculation = rectangle(3, 3);
+
+ 	output.innerText = "Area: " + calculation.area + " | " + "Perimeter: " + calculation.perimeter; 
+ };
+
+
+ showOutput();
+
+
+ function circle(radius){
+   
+   const area = (Math.PI * radius * radius);
+   const circumference = (2 * Math.PI * radius);
+
+   return{
+   	area: area.toFixed(2),
+   	circumference: circumference.toFixed(2),
+   };
+
+ }
+
+ // 👉 Math.PI use karna better hai
+ // 👉 toFixed(2) decimal control karta hai
+
+
+ function DataOfCircle(){
+
+ 	const output = document.querySelector("#circle");
+
+ 	const datas = circle(3);
+
+ 	output.innerText = "Area: " + datas.area + " | " + "Circumference: " + datas.circumference;
+ };
+
+ DataOfCircle();
+  </script>
+
+</body>
+</html>

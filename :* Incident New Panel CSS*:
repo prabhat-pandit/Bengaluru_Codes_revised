@@ -1,0 +1,85 @@
+/* Incident New Panel CSS*/
+
+.section-title {
+  margin-bottom: 20px;
+  font-weight: 600;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+.incident-wrapper{
+  padding-top:40px;
+  padding-bottom:40px;
+}
+/* Incident List */
+.incident-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.incident-card {
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+  corner-shape:scoop;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.incident-card:hover {
+  box-shadow: 0 4px 50px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+}
+
+.incident-card.active {
+  border-left: 4px solid #007bff;
+  background: #f0f7ff;
+  color:#fff;
+}
+
+/* Card content */
+.inc-number {
+  font-weight: 600;
+  color: #007bff;
+  font-size: 22px;
+}
+
+.inc-desc {
+  font-size: 22px;
+  margin: 6px 0;
+  color: #333;
+}
+
+.inc-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  color: #666;
+}
+
+/* Right Panel */
+.incident-details-card {
+  background: #ffffff;
+  border-radius: 20px;
+  corner-shape:scoop;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.incident-details-card h4 {
+  margin-bottom: 15px;
+}
+
+.ui-note {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #999;
+}
+.incident-details-card{
+  position: fixed;
+  z-index: 9999999;
+  top: 100px;
+  right: 175px;
+  width:600px;
+}

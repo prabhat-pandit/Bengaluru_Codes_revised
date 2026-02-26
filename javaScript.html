@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Er. Prabhat Pandit</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        
+        .alert-animate {
+          animation: slideFade 0.4s ease-in-out;
+        }
+
+        @keyframes slideFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Header Section -->
+        <div class="header text-center">
+            <h1>Awesome JavaScript Tutorial</h1>
+        </div>
+
+
+
+        <div class="mt-5 mb-5">
+            
+             <label class="mt-2 mb-2">Enter The Number to see The Next Three Positive Numbers:</label>
+              <input type="text"
+                 class="form-control"
+                 placeholder="Enter a Positive Number"
+                 id="input-field" 
+              >
+            <button class="btn btn-warning mt-3 mb-3">
+                See The Next Three Positive Numbers
+            </button>
+           <br />
+           <div id="result"></div>
+
+        </div>
+        
+
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Created with <i class="fas fa-heart text-danger"></i> By Er. Prabhat Pandit</p>
+            <p class="mb-0">Full Web Development Tutorials Coming Soon!</p>
+        </div>
+    </div>
+
+    
+    
+
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function(){
+
+           const input_Value = document.querySelector("#input-field");
+           
+
+
+           function showAlert(message, type="danger"){
+            const result = document.querySelector("#result");
+            result.innerHTML = `
+                <div class="alert alert-${type} text-center fade show alert-animate" role="alert">
+                   <h5>${message}</h5>
+                </div>
+            `;
+           };
+           
+
+        document.querySelector(".btn-warning").addEventListener("click", function(){
+
+            var userInput = Number(input_Value.value);
+
+            
+            if(input_Value.value.trim() === "" || isNaN(userInput)){
+                showAlert('Please Enter a Valid Number ⚠️', "danger");
+                input_Value.value = ""; 
+                input_Value.focus(); 
+                return;
+            }
+            
+            
+            if(Object.is(userInput, -0)){
+                showAlert(`Negative zero (-${userInput}) is not allowed ⚠️`, "danger");
+                input_Value.value = ""; 
+                input_Value.focus(); 
+                return;
+            }
+
+            
+            if(userInput < 0){
+                showAlert('Only positive numbers (> 0) allowed ⚠️', "warning");
+                input_Value.value = ""; 
+                input_Value.focus(); 
+                return;
+            }
+            showAlert(`Here are the Next Three Positive Numbers of ${userInput}: ${userInput + 1}, ${userInput + 2}, ${userInput + 3}`, "success");
+            startRain(); 
+            console.log(userInput);
+        });
+
+        });
+
+    </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+    <script>
+
+        function startRain() {
+          const end = Date.now() + 3000;
+
+          (function rain() {
+            confetti({
+              particleCount: 6,
+              angle: 90,
+              spread: 180,
+              startVelocity: 20,
+              gravity: 1,
+              scalar: 1,
+              decay: 0.94,
+              zIndex: 9999,
+              origin: { x: Math.random(), y: 0.1 }
+            });
+
+            if (Date.now() < end) requestAnimationFrame(rain);
+          })();
+        }
+
+    </script>
+
+
+</body>
+</html>

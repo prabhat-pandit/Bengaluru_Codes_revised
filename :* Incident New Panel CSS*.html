@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Modern Hamburger Menu Animation | HTML CSS JavaScript</title>
+	 <!-- Bootstrap (optional for demo background) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	  body{
+	  	background: #fff;
+	  }
+	  .no-scroll{
+       overflow: hidden;
+      }
+
+	 *{
+	 	padding: 0;
+	 	margin: 0;
+	 }
+	 .hamburger-menu{
+	 	display: flex;
+	 	justify-content: center;
+	 	align-content: center;
+	 	align-items: center;
+	 	align-self: center;
+	 	flex-direction: column;
+	 	text-align: center;
+	 	position: fixed;
+	 	top: 10px;
+	 	right: 20px;
+	 	z-index: 10001;
+	 	cursor: pointer;
+	 	transition: all 0.4s ease-in-out;
+	 }
+	 .bar{
+        background: #000;
+        width: 100px;
+        height: 8px;
+        border-radius: 5px;
+        margin: 5px 0;
+        transition: all 0.4s ease-in-out;
+	 }
+	.change .bar-one{
+      transform: rotate(-46deg) translate(-18px, 18px);
+    }
+    .change .bar-two{
+      opacity: 0;
+      transform: rotate(0deg) translate(0px, 8px);
+    }
+
+    .change .bar-three{
+      transform: rotate(46deg) translate(-6px, -6px);
+    }
+
+    /* Overlay Menu CSS starts from here */
+
+    .overlay-menu{
+    	position: fixed;
+    	width: 100%;
+    	height: 100vh;
+    	background: rgba(0, 128, 128, 0.4); /* semi transparent */
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    	color: #fff;
+    	background: #000000c2;
+    	top: 0;
+      left: 0;
+      opacity: 0;
+    	transform: translateY(100%);
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: center;
+    	text-align: center;
+    	z-index: 1000;
+      transition: transform 0.5s ease, opacity 0.4s ease;
+    }
+    .inner-menu{
+    	position: relative;
+    	text-align: center;
+      display: flex;
+    	flex-direction: column;
+    	width: auto;
+      /*background: aquamarine;*/
+      text-align: left;
+      margin: 0 auto;
+      padding: 0px;
+    }
+    .link{
+    	font-size: 40px;
+    	font-family: sans-serif;
+    	cursor: pointer;
+    	display: inline-block;
+    	color: #fff;
+      position: relative;
+    	text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 1px;
+      font-weight: 900;
+      width: auto;
+      transition: transform 0.5s ease-in-out;
+    }
+/*    .link:hover{
+      transform: translateX(20px) !important;
+      transition: transform 0.5s ease-in-out;
+    }*/
+    .overlay-menu.active{
+    	opacity: 1;
+    	transform: translateY(0);
+    	transition: transform 0.5s ease-in-out;
+    }
+
+    .change .bar.active{
+    	background: #fff;
+    	transition: transform 0.5s ease-in-out;
+    }
+
+
+.overlay-menu {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+
+/*.link {
+  opacity: 0 !important;
+  transform: translateY(300px) !important;
+  transition: all 0.4s ease !important;
+}
+*/
+/*.overlay-menu.active .link {
+  opacity: 1;
+  transform: translateY(0);
+}
+*/
+
+/* Stagger effect */
+/*.overlay-menu.active .link:nth-child(1) { transition: 0.4s 0.3s; }
+.overlay-menu.active .link:nth-child(2) { transition: 0.4s 0.6s; }
+.overlay-menu.active .link:nth-child(3) { transition: 0.4s 0.9s; }
+.overlay-menu.active .link:nth-child(4) { transition: 0.4s 1.2s; }
+.overlay-menu.active .link:nth-child(5) { transition: 0.4s 1.5s; }
+.overlay-menu.active .link:nth-child(6) { transition: 0.4s 1.8s; }
+.overlay-menu.active .link:nth-child(7) { transition: 0.4s 2.1s; }
+*/
+    @media only screen and (max-width: 430px){
+    	.inner-menu {
+		    position: relative;
+		    text-align: center;
+		    display: flex;
+		    flex-direction: column;
+		    text-align: left;
+		    padding: 30px;
+      }
+    }
+	</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1 class="text-center text-dark mt-5 h1">Modern Hamburger Menu Animation | HTML, CSS, & JavaScript</h1>
+<h1 class="text-center text-dark mt-5 h1">Build a Modern Hamburger Menu & Stunning Overlay Menu with Animation | HTML, CSS, & JavaScript</h1>
+
+
+<div class="hamburger-menu" id="hamburger-menu">
+	 <span class="bar bar-one"></span>
+	 <span class="bar bar-two"></span>
+	 <span class="bar bar-three"></span>
+</div>
+
+
+<div class="overlay-menu" id="overlay-menu">
+	
+	<div class="inner-menu">
+		  <a href="javascript:void(0);" class="link">Home</a>
+		  <a href="javascript:void(0);" class="link">Services</a>
+		  <a href="javascript:void(0);" class="link">About Us</a>
+		  <a href="javascript:void(0);" class="link">Products</a>
+		  <a href="javascript:void(0);" class="link">New Arrivals</a>
+      <a href="javascript:void(0);" class="link">Dashboard</a>
+		  <a href="javascript:void(0);" class="link">Contact Us</a>
+	</div>
+
+</div>
+
+
+<div class="row mt-5">
+
+  <div class="col-sm-4 mb-3 col-xxl-3 mb-sm-0">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <h5 class="card-title">Learn Web Development</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Web Development</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xxl-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <h5 class="card-title">Learn JavaScript With Me</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">JavaScript</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-4 col-xxl-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <h5 class="card-title">Learn ReactJs With Me</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">ReactJs</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xxl-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <h5 class="card-title">Learn ServiceNow With Me.</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">ServiceNow</a>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+</div>
+
+<script>
+	// Professional sites me jab overlay open hota hai to background scroll disable hota hai:
+
+	document.addEventListener("DOMContentLoaded", function(){
+
+      const menu = document.querySelector("#hamburger-menu");
+      const overlay = document.querySelector("#overlay-menu");
+      const bars = document.querySelectorAll(".bar");
+      const links = document.querySelectorAll(".link");
+
+      menu.addEventListener("click", function(){
+  
+          menu.classList.toggle("change");
+          overlay.classList.toggle("active");
+          document.body.classList.toggle("no-scroll");  // Scroll Disable When Open
+
+          if (overlay.classList.contains("active")) {
+              bars.forEach((c) => {
+              setTimeout(() => {
+                c.classList.add("active");
+             }, 500);
+            });
+          }
+          else{
+             bars.forEach(c => c.classList.remove("active"));
+
+             // 🔥 RESET links when closing
+  links.forEach(link => {
+    link.style.opacity = "0";
+    link.style.transform = "translateY(200px)";
+    link.style.transition = "none"; // reset without animation
+  });
+           }
+
+
+          // To Animate the clickable links smoothly from bottom to top
+          // const links = document.querySelectorAll(".link");
+
+if (overlay.classList.contains("active")) {
+
+  // Step 1: reset
+  links.forEach(link => {
+    link.style.opacity = "0";
+    link.style.transform = "translateY(200px)";
+  });
+
+  // Step 2: animate with delay
+  links.forEach((link, index) => {
+    setTimeout(() => {
+      link.style.transition = "all 0.4s ease";
+      link.style.transitionDelay = `${index * 0.2}s`;
+      link.style.opacity = "1";
+      link.style.transform = "translateY(0)";
+    }, 50);
+  });
+}
+
+
+
+      });
+	
+
+	document.addEventListener("keydown", (e) => {
+       if ((e.key === "Escape" || e.key === "Esc") && overlay.classList.contains("active")) {
+       menu.classList.remove("change");
+       overlay.classList.remove("active");
+       bars.forEach(c => c.classList.remove("active"));
+       document.body.classList.remove("no-scroll"); // Scroll Disable When Open
+      }
+    });
+
+
+
+    
+
+    });
+
+</script>
+
+
+</body>
+</html>
+
+

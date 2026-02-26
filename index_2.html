@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 10px;
+        }
+        .active {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h3 class="card-title">Card 1</h3>
+        <button class="btn-card">Click Me 1</button>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">Card 2</h3>
+        <button class="btn-card">Click Me 2</button>
+    </div>
+    
+    <div class="card">
+        <h3 class="card-title">Card 3</h3>
+        <button class="btn-card">Click Me 3</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buttons = document.querySelectorAll(".btn-card");
+
+            buttons.forEach(btn => {
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    
+                    // 1. Sabhi card titles select karo
+                    const allTitles = document.querySelectorAll(".card-title");
+                    console.log("All titles found:", allTitles.length);
+                    
+                    // 2. Current card ka title
+                    const currentTitle = this.closest(".card").querySelector(".card-title");
+                    console.log("Current title:", currentTitle.textContent);
+                    
+                    // 3. Sab cards se active class hatao
+                    document.querySelectorAll(".card").forEach(card => {
+                        card.classList.remove("active");
+                    });
+                    
+                    // 4. Current card ko active karo
+                    this.closest(".card").classList.add("active");
+                    
+                    // 5. Ab active card ka title dekho
+                    const activeTitle = document.querySelector(".card.active .card-title");
+                    console.log("Active card title:", activeTitle.textContent);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
