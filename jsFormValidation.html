@@ -8,11 +8,26 @@
 <title>Form Validation Example</title>
 <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    form { max-width: 400px; margin: auto; }
+    /*form { max-width: 400px; margin: auto; }*/
     input { width: 100%; padding: 10px; margin: 5px 0 15px 0; }
     .error { color: red; font-size: 0.9em; margin-top: -10px; margin-bottom: 10px; }
     .success { color: green; }
     button { padding: 10px 20px; }
+    .delete-btn{
+        position: absolute;
+        float: right;
+        right: 10px;
+        top: 4px;
+    }
+    .list-group-item{
+        margin: 5px 0px 5px 0px;
+    }
+    .btn-info{
+        position: absolute;
+        right: 76px;
+        z-index: 9;
+        top: 4px;
+    }
 </style>
 </head>
 <body>
@@ -24,37 +39,183 @@
 
 <div class="container">
 
-<h2>Signup Form</h2>
+  <div class="row">
+      
 
-<form id="signupForm" novalidate>
+         <h2>Signup Form</h2>
 
-    <label>Name:</label>
-    <input type="text" name="name" class="form-control" id="name" placeholder="Enter your Name">
-    <div class="error" id="nameError"></div>
+  <div class="col-xxl-6">
+      
+      <form id="signupForm" novalidate>
 
-    <label>Email:</label>
-    <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email">
-    <div class="error" id="emailError"></div>
+            <label>Name:</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="Enter your Name">
+            <div class="error" id="nameError"></div>
 
-    <label>Password:</label>
-    <input type="password" name="password" class="form-control" id="password" placeholder="Enter your Password">
-    <div class="error" id="passwordError"></div>
+            <label>Email:</label>
+            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your Email">
+            <div class="error" id="emailError"></div>
 
-    <label>Confirm Password:</label>
-    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm your Password">
-    <div class="error" id="confirmPasswordError"></div>
+            <label>Password:</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Enter your Password">
+            <div class="error" id="passwordError"></div>
 
-    <label>Phone Number:</label>
-    <input type="tel" maxlength="10" name="number" class="form-control" id="phone" placeholder="Enter your Phone">
-    <div class="error" id="phoneError"></div>
+            <label>Confirm Password:</label>
+            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm your Password">
+            <div class="error" id="confirmPasswordError"></div>
 
-    <button class="btn btn-info mt-2" type="submit">Signup</button>
-    <br />
-    <div id="formMessage" class="mt-2"></div>
-    <div class="formData mt-2" id="formData"></div>
-</form>
+            <label>Phone Number:</label>
+            <input type="tel" maxlength="10" name="number" class="form-control" id="phone" placeholder="Enter your Phone">
+            <div class="error" id="phoneError"></div>
+
+            <button class="btn btn-success mt-2" type="submit">Signup</button>
+            <br />
+            <div id="formMessage" class="mt-2"></div>
+      </form>
+
+  </div>
+
+  <div class="col-xxl-6">
+      <div class="formData mt-5" id="formData"></div>
+  </div>
+
+  </div>
+
+  <br /><br /><br />
+   <div class="w-50 mx-auto">
+          <label for="todoItems">Add Task To Your To-Do Items</label>
+          <div class="form-group">
+             <input 
+               type="text" 
+               placeholder="Add Task To Your To-Do Item..." 
+               class="form-control" 
+               id="todoItems">
+          </div>
+          <div class="mt-3 mb-3">
+              <button id="taskButton" class="btn btn-warning">Add Task</button>
+          </div>
+          <div class="taskDiv" id="taskDiv"></div>
+   </div>
+
+
+   <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name">
+   <button class="btn btn-warning" id="myBtn">My Button</button>
 
 </div>
+
+
+<script>
+   const input = document.querySelector("#name");
+   const btns = document.querySelector("#myBtn");
+
+   document.addEventListener("keydown", () =>{
+    console.log(document.activeElement);
+   });
+</script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+  const taskObject = [];
+  const taskData = document.querySelector("#taskDiv");
+  const btn = document.querySelector("#taskButton");
+  const inputValue = document.querySelector("#todoItems");
+
+  // -------------------------
+  // Add Task Function
+  // -------------------------
+  function addTask() {
+    const inputData = inputValue.value.trim();
+
+    if(inputData === "" || !isNaN(inputData) || inputData.length < 3){
+      alert("Please enter valid text Task");
+      return;
+    }
+
+    // Add task object
+    taskObject.push({
+      id: Date.now(),
+      task: inputData
+    });
+
+    inputValue.value = ""; // Clear input
+    renderTask();
+  }
+
+  // -------------------------
+  // Render Task Function
+  // -------------------------
+  function renderTask() {
+    let html = "";
+
+    taskObject.forEach(item => {
+      html += `
+        <ul class="list-group">
+          <li class="list-group-item" data-id="${item.id}">
+            ${item.task} 
+            <button class="btn btn-info btn-sm" data-id="${item.id}">View</button>
+            <button class="btn btn-danger btn-sm delete-btn" data-id="${item.id}">Delete</button>
+          </li>
+        </ul>
+      `;
+    });
+
+    taskData.innerHTML = html;
+  }
+
+  // -------------------------
+  // Delete Task Function
+  // -------------------------
+  function deleteTask(id) {
+    const index = taskObject.findIndex(item => item.id === id);
+    if(index !== -1){
+      taskObject.splice(index, 1);
+      renderTask();
+    }
+  }
+
+  // -------------------------
+  // Alert Task Function
+  // -------------------------
+  function alertTask(id) {
+    const selectedTask = taskObject.find(item => item.id === id);
+    if(selectedTask){
+      alert(selectedTask.task);
+    }
+  }
+
+  // -------------------------
+  // Event Listeners
+  // -------------------------
+  btn.addEventListener("click", addTask);
+
+  taskData.addEventListener("click", function(e){
+    const id = Number(e.target.dataset.id);
+
+
+    if(e.target.classList.contains("delete-btn")){
+      deleteTask(id);
+    } 
+    else if(e.target.classList.contains("btn-info")){
+      alertTask(id);
+    }
+  });
+
+
+  document.addEventListener("keydown", (e) =>{
+
+    if(e.key === "Enter" && document.activeElement === inputValue){
+        addTask();
+    }
+
+  });
+
+});
+    
+
+
+</script>
 
 <!-- <script src="validation.js"></script> -->
 
@@ -149,12 +310,16 @@
             errors.formMessage.textContent = "Signup successful!";
             errors.formMessage.className = "success";
 
-            Object.entries(fields).forEach(([key, field]) => {
-            html += `<p><strong>${key.toUpperCase()}:</strong> ${field.value}</p>`;
+            Object.entries(fields).forEach(([key, field], index) => {
+            html += `<div id="${index}" class="list-group">
+                       <p class="${index % 2 === 0 ? "bg-info list-group-item" : "bg-success list-group-item"}">
+                             <strong>${key.toUpperCase()}:</strong> ${field.value}
+                        </p>
+                     </div>`;
             });
 
             formData.innerHTML = html;
-            form.reset();
+            // form.reset();
 
         } else {
             errors.formMessage.textContent = "Please fix the errors above";
@@ -234,26 +399,201 @@
 
 
    const peopleDetials = [
+        {name:"Pintu Kumar", age:31},
         {name:"Prabhat Pandit", age:33},
         {name:"Pooja kumari", age:39},
         {name:"Pankaj Sharma", age:50},
         {name:"Pradeep kumar", age:43},
         {name:"Ram Kumar", age:50},
         {name:"Amar Sharma", age:60},
-        {name:"Prabhat Pandit", age:23},
+        {name:"Raku Yadav", age:23},
         {name:"Pooja kumari", age:19},
-        {name:"Ram Kumar", age:20},
+        {name:"Ravi Kumar", age:20},
     ];
 
-    const uniqurArrayOfObject = [];
+
+    // const convertArray = Object.keys(peopleDetials);
+
+    const findObject = peopleDetials.find((item) => item.name === "Prabhat Pandit");
+
+    console.log(findObject);
+
+
+    // Find() 👉 sirf FIRST matching element return karta hai
+    // ✔ Pehla match milte hi ruk jaata hai
+    // ❌ baaki matches ignore ho jaate hain
+    const findObject1 = peopleDetials.find((item) => item.age >= 30);
+
+    console.log(findObject1);
+
+   // Filter() 🔥 Agar multiple chahiye ho?
+   const findObject2 = peopleDetials.filter((item) => item.age >= 30);
+
+    console.log(findObject2);
+
+    const ArrayData = findObject2.map(t => t.name);
+    console.log(ArrayData);
+
+    const ArrayData1 = findObject2.map(t => t.age);
+    console.log(ArrayData1);
 
 
 
 
+   const peoples = [
+        {name:"Pintu Kumar", age:31},
+        {name:"Prabhat Pandit", age:33},
+        {name:"Pooja kumari", age:39},
+        {name:"Pankaj Sharma", age:50},
+        {name:"Pradeep kumar", age:43},
+        {name:"Ram Kumar", age:50},
+        {name:"Amar Sharma", age:60},
+        {name:"Raku Yadav", age:23},
+        {name:"Pooja kumari", age:19},
+        {name:"Ravi Kumar", age:20},
+    ];
+
+    console.log("Hello Developer");
+
+    const convertName = peoples.map((people) => people.name);
+    console.log(convertName);
+
+    const convertAge = peoples.map((people) => people.age);
+    console.log(convertAge);
+
+     
+    // Literal key ka matlab: Jab tum object banate ho aur key ka naam fix ho, matlab ekdum literal string.
+    // JS ko pata hota hai ki key exactly wahi hai jo tumne likha.
+    const keyValuePair = peoples.map(people => ({name: people.name, age: people.age}));
+    console.log(keyValuePair);
+
+
+    // {[variable]: value} → dynamic key
+    const keyValuePair1 = peoples.map(people => ({[people.name] : people.age}));
+    console.log(keyValuePair1);
+
+
+    // Galat approach (dynamic value ke liye literal key nahi chalega):
+    const key = "Prabhat Pandit";
+    const age = 33;
+
+    const obj = { [key]: age };
+    console.log(obj);
+    // Output: { "Prabhat Pandit": 33 }
+
+
+
+
+    // Galat approach (dynamic value ke liye literal key nahi chalega):
+    const key1 = "Prabhat Pandit";
+    const age1 = 33;
+
+    const obj1 = { key1: age1 }; 
+    console.log(obj1); 
+    // Output: { key: 33 }  → "key" literal string ho gaya, variable ka value nahi
+
+
+    // Yahan name aur age literal keys hain.
+    // JS ke liye ye fix keys hain, aur unke corresponding values "Prabhat" aur 33 hain.
+    const person = { name: "Prabhat", age: 33 };
+
+    // Output:
+
+    console.log(person.name); // "Prabhat"
+    console.log(person.age);  // 33
+
+
+    const uniqueSetValue = new Set([1,1,1,2,3,4,5,5,6]);
+    console.log(uniqueSetValue);
+
+
+   const countries = [
+    {region: 'Asia'},
+    {region: 'Europe'},
+    {region: 'Asia'},
+    {region: 'Africa'},
+    {region: 'Africa'},
+    {region: 'Europe'}
+];
+
+
+  // new Set()                    // Empty set
+  // new Set(iterable)            // Iterable se set banane ke liye
+
+  // 1: Create an array of all the region
+  // Pehle regions ka array banaya
+  const allRegion = countries.map(t => t.region);
+  console.log(allRegion);
+
+  
+  // 2: new Set() create only unique value
+  // Array ko Set mein daala
+  const uniqueRegion = new Set(allRegion);
+  console.log(uniqueRegion);
+
+  // 3: Spread operator (...) se wapas array mein convert karo
+  // Wapas array mein convert kiya
+  const againArray = [...uniqueRegion];
+  console.log(againArray);
+
+  const joining = againArray.join(",");
+
+  console.log(joining);
 
 </script>
 
 
+  <!-- Portal{
+    Tilte: 
+    URL Suffix:
+  }
+ Page{
+    Tilte: Prabhat_ServiceNow_Page
+    ID: 73854
+ }
+
+ widgets{
+    Name:prabhat_widget
+    ID:q32323
+ } -->
+
+ <script>
+     
+     const students = ["ram", "shayam", "puja", "pooja", "riya", "sita", "moham", "sohan", "prabhat pandit"];
+
+
+     function findStudent(name){
+
+        const index = students.indexOf(name);
+
+        if(index === -1){
+
+            return `${name} Class Mein Nahi hai`;
+        }
+        else{
+            return `${name} Class Mein Present Hai and Roll No. ${index + 1} par hai ✅`;
+        }
+     }
+
+     console.log(findStudent('ram'));
+
+     const studentsArray = ["ram", "shayam", "puja", "pooja", "riya", "sita", "moham", "sohan", "prabhat pandit"];
+
+     // Agar player nahi hai to -1
+     console.log(studentsArray.indexOf("priya")); // output -1
+
+     // Agar player nahi hai to -1
+     console.log(studentsArray.indexOf("prabhat pandit")); // outpt 8, means student us array mein hai.
+
+     // same result with includes() method. return "true" if element found in the given array
+     console.log(studentsArray.includes("prabhat pandit")) // output "true" means student present hai array mein
+
+     // same result with includes() method. return "false" if element not found in the given array
+     console.log(studentsArray.includes("priya")) // output "false" means student present nahi hai array mein
+
+
+
+ </script>
 
 </body>
 </html>

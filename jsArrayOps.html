@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container mt-5 mb-5 text-center">
+		<h1 class="h1">JavaScript Array Operations</h1>
+		<button onclick="showNotification()">Click Me</button>
+	</div>
+
+
+	<script>
+
+		const arr = [2, 4, 5, 6, 3, 3, 3, 90, 0, -1, -2, 2, 6, 90, 100]; // even = 10, odd = 5
+		
+		// Double The every Elements in an Array
+
+		function func(arr){
+
+			if(arr.length === 0) return [];
+
+			let doubleEle = [];
+
+			for (let i = 0; i < arr.length; i++) {
+				doubleEle.push(arr[i] * 2);
+			}
+			return doubleEle;
+		}
+		console.log(func(arr));
+
+
+		// Find the max element in the Array
+		function func1(arr){
+
+			if (arr.length === 0) return [];
+
+			let max = arr[0]; // let's assume the first element of the array to be max element
+
+			for (let i = 1; i < arr.length; i++) {
+				if(arr[i] > max){
+					max = arr[i];
+				}
+			}
+			return max;
+		}
+		console.log("Max Element : " + func1(arr));
+
+
+		// Find the Min element from the Array
+		function func2(arr){
+
+			if(arr.length === 0) return [];
+
+			let min = arr[0]; // let's assume the first element of the array to be min element
+
+			for (let i = 1; i < arr.length; i++) {
+				if(arr[i] < min){
+					min = arr[i];
+				}
+			}
+			return min;
+		}
+		console.log("Min Value: " + func2(arr));
+
+
+		// Find The sum of the element of the given array
+		function func3(arr){
+
+			if(arr.length === 0) return [];
+
+			let sum = 0;
+
+			for (let i = 0; i < arr.length; i++) {
+				sum += arr[i];
+			}
+			return sum;
+		} 
+		console.log("Sum Of The Elements of the Given Array : " + func3(arr));
+
+
+		// Find the sum Of the even Elements in the array
+		function func4(arr){
+
+			if(arr.length === 0) return [];
+
+			let evenSum = 0;
+
+			for (let i = 0; i < arr.length; i++) {
+				if(arr[i] % 2 === 0){
+					evenSum += arr[i];
+				}
+			}
+			return evenSum;
+		}
+		console.log("Sum of Even Elements of The Given Array is : " + func4(arr));
+
+
+		// Find The Sum of all The Odd Elements from the Array
+		function func5(arr){
+
+			if(arr.length === 0) return [];
+
+			let oddSum = 0;
+
+			for (let i = 0; i < arr.length; i++) {
+				if(arr[i] % 2 !== 0){
+					oddSum += arr[i];
+				}
+			}
+			return oddSum;
+		}
+		console.log("Sum of Odd Elements of The Given Array is : " + func5(arr));
+
+
+		// Create an array from the Even Elements from the array
+		function func6(arr){
+
+          if(arr.length === 0) return [];
+
+          let evenArray = [];
+
+          for (let i = 0; i < arr.length; i++) {
+          	 if(arr[i] % 2 === 0){
+          	 	evenArray.push(arr[i]);
+          	 }
+          }
+          return evenArray;
+		};
+		console.log(func6(arr));
+
+
+		// Create an array of all the odd elements from the given array
+		function func7(arr){
+          
+          if(arr.length === 0) return [];
+
+          let oddArray = [];
+
+          for (let i = 0; i < arr.length; i++) {
+               if(arr[i] % 2 !== 0){
+               	 oddArray.push(arr[i]);
+               }
+          }
+           return oddArray;
+		}
+		console.log(func7(arr));
+
+
+
+       // Create Unique Array from the Given Array
+		function func8(arr){
+
+			if (arr.length === 0) return [];
+
+			let uniqueArray = [];
+
+			for (let i = 0; i < arr.length; i++) {
+				if(!uniqueArray.includes(arr[i])){
+					uniqueArray.push(arr[i]);
+				}
+			}
+			return uniqueArray;
+		}
+		console.log(func8(arr));
+
+		const s = [... new Set(arr)].map(ele => ele * 2);
+		console.log(s);
+
+		const summation = [... new Set(arr)].map(ele => ele).reduce((curr, sum) => curr + sum, 0);
+		console.log(summation);
+
+
+		// Count how many even elements in the given array
+		function func9(arr){
+
+			if(arr.length === 0) return [];
+
+			let evenNumber = 0;
+
+			for (let i = 0; i < arr.length; i++) {
+				if(arr[i] % 2 === 0){
+					evenNumber++;
+				}
+			}
+			return evenNumber;
+		}
+        console.log("Even Elements Counts : " + func9(arr));
+
+
+        // Count how many odd elements in the given array
+        function func10(arr){
+
+        	if (arr.length === 0) return [];
+
+        	let oddNumber = 0;
+
+        	for (let i = 0; i < arr.length; i++) {
+        		if(arr[i] % 2 !== 0){
+        			oddNumber++;
+        		}
+        	}
+
+        	return oddNumber;
+        }
+        console.log("Odd Elements Counts : " + func10(arr));
+
+        
+        const arr2 = [1, 1, 1, 1, 1]
+
+        // Find the Average of the elements of array
+        function func11(arr2){
+
+        	if (arr2.length === 0) return [];
+
+        	let average = 0;
+
+        	for (let i = 0; i <= arr2.length - 1; i++) {
+        		average += arr2[i];
+        	}
+        	return (average / arr2.length);
+        }
+        console.log("Average of the Elements of the given Array :" + func11(arr2));
+
+        // average = (sum of number / total count)
+
+        let str = "Hello World Js";
+        let str1 = str.split(" ");
+        console.log(str1);
+        let str2 = str1.reverse().join(" ").split(" ");
+        console.log(str2);
+
+        
+        function func12(str){
+
+        	if (!str) return "No String Found";
+
+        	let word = str.split(" "); // split the string into array
+
+        	let newStr = [];
+
+        	for (let i = word.length - 1; i >= 0; i--) {
+        	 	newStr.push(word[i]);
+        	 }
+
+        	 return newStr; 
+        }
+        console.log(func12("i love react, angular and ServiceNow"));
+
+        // input array1 = [10, 3, 20, 24, 40];
+        // output [40, 24, 20, 3, 10]
+
+        const ar = [10, 3, 20, 24, 40];
+        let rever = [...ar].reverse(); // original array safe rahega spread operator se.
+        console.log(ar); // reverse method original array ko change (mutate) kar deta hai.
+        console.log(rever);
+
+        function func13(ar){
+
+        	if(ar.length === 0) return [];
+
+        	let newArray = [];
+
+        	for (let i = ar.length - 1; i >= 0; i--) {
+        		newArray.push(ar[i]);
+        	}
+
+        	return newArray;
+        };
+        console.log(func13(ar));
+
+        let num = 12345;
+
+        let reversed = num.toString().split("").reverse().join("");
+
+        console.log(reversed); // "54321"
+
+
+        let str4 = "I love JavaScript";
+
+        let result = str4.split(" ").reverse().join(" ");
+
+        console.log(result);
+        // "JavaScript love I"
+
+        // Reverse Only Even Numbers using for Loop
+        let array4 = [1,2,3,4,5,6];
+
+        function func14(array4){
+
+        	if (array4.length === 0) return 0;
+
+        	let evenReverse = [];
+
+        	for (let i = array4.length - 1; i >= 0; i--) {
+        		if(array4[i] % 2 === 0){
+        			evenReverse.push(array4[i]);
+        		}
+        	}
+        	return evenReverse;
+        };
+        console.log(func14(array4));
+
+        // Reverse Only Even Numbers using filter method
+        const filtered = array4.filter(filterArray => filterArray % 2 === 0).reverse();
+        console.log(filtered);
+
+
+        // Reverse Only Even Numbers using for Loop
+        function func15(array4){
+
+        	if (array4.length === 0) return 0;
+
+        	let oddReverse = [];
+
+        	for (let i = array4.length - 1; i >= 0; i--) {
+        		if(array4[i] % 2 !== 0){
+        			oddReverse.push(array4[i]);
+        		}
+        	}
+        	return oddReverse;
+        };
+        console.log(func15(array4));
+
+
+
+        
+
+function showNotification(){
+
+    Notification.requestPermission().then(permission => {
+        if(permission === "granted"){
+            new Notification("Hello Bhai 🔥", {
+                body: "Ye tera pehla notification hai 😎"
+            });
+        }
+    });
+
+}
+</script>
+
+
+        // Array mein sirf even numbers ko reverse karo, baaki same position pe rehne do
+
+
+
+
+     // str.length - 1: last element of the array, i = 5, let's say array length is 5
+     // i >= 0: loop tab tak chale jab tak ki i zero se bada ya equal to na ho jayeh.
+     // i--  phir i ko decrease karte raho bas.
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<!-- Bootstrap (optional for demo background) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+	<div class="container">
+
+		 <div class="text-center mt-5">
+   	  	  <h1>Check if Element Exists in Array (indexOf vs includes)</h1>
+   	      <h1>Array Methods in JavaScript</h1>
+   	    </div>
+
+   	    <div id="data"></div>
+
+	</div>
+
+	<script>
+		
+    // indexOf()
+
+	// return "-1" if element doesn't found in the array.
+	// why "-1" cuz array index starts from 0, 1, 2, 3, 4, .... 
+	// if element found in the array it will return the position/index of the particular element in the array
+
+	// let's create here an array of fruit
+
+	const fruits = ["apple", "banana", "papaya", "orange", "grapes", "mangoes"];
+
+	// function findElement(){
+
+	// 	const element = fruits.indexOf("mangoes");
+         
+    //     // which no such element found in the array.
+    //     // element === -1, which means element is not in thi array
+    //     if(element === -1){
+    //     	console.log("Element Not Found");
+    //         return false;
+    //     }
+    //     else{
+    //     	console.log(`"mangoes" Found on the Index ${element}`);
+    //     	return true;
+    //     }
+
+	// }
+	//findElement();
+
+    function findElement1(){
+    	const element = fruits.indexOf("orange");
+
+         // element !== -1, which means element is there in this array
+    	if(element !== -1){
+           console.log(`"orange" Found at the index of ${element}`);
+           return true;
+    	}
+    	else{
+    		console.log("Element Not Found in the Array");
+    		return false;
+    	}
+    }
+
+    //findElement1();
+
+     function findElement2(arr, element){
+
+     	 const index = arr.indexOf(element);
+     	 if(index === -1){
+           return{
+           	  Found: false,
+              index:-1,
+              message: `Element Not Found at the index ${index}`
+           }
+     	 }
+     	 else{
+     	 	return{
+           	  Found: true,
+              index:index,
+              message: `Element Found at the index ${index}`
+           }
+     	 }
+     }
+     console.log(findElement2(fruits, "apple"));
+
+     // ES +7, array.includes()
+     function findElement3(arr, element){
+
+     	if(arr.includes(element)){
+     		console.log(`"${element}" exists in the array`);
+     		return true;
+     	}
+     	else{
+     		console.log(`"${element}" doesn't exists in the array`);
+     		return false;
+     	}
+
+     }
+     findElement3(fruits, "water");
+
+     const students = [
+     	               'ram', 'puja', 'prabhat pandit', 
+     	               'deepak sharma', 'pankaj sharma', 
+     	               'sita', 'raju', 'shyam', 'sohan', 
+     	               'mohan'
+     	             ];
+
+    function findStudents(name){
+           
+           const index = students.indexOf(name);
+
+            // index === -1, element is not there in the array
+           //  index !== -1, element is present in the array
+           if(index !== -1){
+           	 return `${name} student is there in th classroom`;
+           }
+           else{
+           	   return `${name} student is not there in th classroom`;
+           }
+    };
+
+     console.log(findStudents("mohan"));
+
+     function findElement4(arr, element){
+
+     	// find() method will return undefined if element is not present in the array.
+     	// otherwise true
+
+     	const found = arr.find(item => item === element)
+     	if(found !== undefined){
+     		console.log(`Found: ${found}`);
+     		return found;
+     	}
+     	else{
+     		console.log("Not Found");
+     		return null;
+     	}
+     }
+
+     console.log(findElement4(students, "raju"));
+
+     const countries = [
+     	{region:"Asia"},
+     	{region:"Europe"},
+     	{region:"Africa"},
+     	{region:"Asia"},
+     	{region:"Africa"},
+     	{region:"Asia"},
+     	{region:"Europe"},
+     ];
+
+
+
+     // 1: Create an array of all the regions
+     // will return us the new array without modifying the original array.
+     // and it will run function on every element in the given array
+
+     const allRegion = countries.map(t => t.region);
+     console.log(allRegion);
+     console.log(".............");
+
+     const allRegions = ["Asia", "Africa", "Europe", "Asia", "Europe", "Africa", "Asia", "Asia", "Europe", "Africa"];
+     const ele = [];
+
+     function uniqueRegion1(){
+
+        allRegions.forEach(region => {	
+        	if(!ele.includes(region)){
+        		ele.push(region);
+        	}
+        	else{
+     		console.log("Hello Dev");
+     	    }
+        })
+     	return ele;
+     };
+
+     function removeDuplicates(){
+
+     	const allRegions = ["Asia", "Africa", "Europe", "Asia", "Europe", "Africa", "Asia", "Asia", "Europe", "Africa"];
+        const ele = [];
+        const seen = new Set();
+
+        allRegions.forEach(region => {
+        	if(!seen.has(region)){
+        		seen.add(region);
+        		ele.push(region);
+        	}
+        	else{
+        		console.log("Hello Dev");
+        	}
+        });
+        return ele;
+     }
+     console.log(removeDuplicates());
+
+
+
+const seen = new Set();
+
+seen.add("Asia");
+seen.add("Africa");
+seen.add("Asia"); // duplicate ignore ho jayega
+
+console.log(seen); 
+// Set(2) { 'Asia', 'Africa' }
+seen.add("Asia");
+seen.add("Europe");
+
+seen.forEach(value => {
+    console.log(value);
+});
+
+     console.log(uniqueRegion1()); // Store only unique value
+
+     console.log(".............");
+
+     // 2: Set() method to remove duplicate value from the array
+
+     const uniqueRegion = new Set(allRegion);
+     console.log(uniqueRegion);
+
+     // 3: ... spread operator to convert again in the array
+
+     const arrEle = [...uniqueRegion];
+     console.log(arrEle);
+
+     const peoples = [
+     	{name: "prabhat pandit", age:29},
+     	{name: "puja sharma", age:27},
+     	{name: "ram kumar", age:32},
+     	{name: "pradeep yadav", age:30},
+     	{name: "pankaj sharma", age:35},
+     	{name: "amar jha", age:25},
+     	{name: "ravi kumar", age:40},
+     	{name: "deepak sharma", age:28},
+     	{name: "Ankit Kushwaha", age:31},
+     	{name: "amit yadav", age:23},
+     	{name: "Akshay Kumar", age:44},
+     ];
+
+     const name = peoples.map(people => people.name);
+     console.log(name);
+
+     const age = peoples.map(function(people){
+        return people.age
+     });
+     console.log(age);
+
+     const returnObj = peoples.map(people => ({
+     	name: people.name,
+     	age: people.age
+     }));
+
+     console.log(returnObj);
+
+     const dataDiv = document.querySelector("#data");
+     let html = '';
+     // will not return anything
+     // will run the function on every element
+     // will not create any new array
+     Object.entries(peoples).forEach(([key, value]) => {
+   
+          html += `<p> ${key}: ${value.name}</p>`;
+     });
+
+     dataDiv.innerHTML = html;
+
+     const peoplesName = peoples.filter(x => x.age > 30).map(x => x.name);
+     console.log(peoplesName);
+
+     const peoplesAge = peoples.filter(x => x.age > 40).map(x => x.age);
+     console.log(peoplesAge);
+
+
+     const findpeople = peoples.find((item) => item.age >= 30); // it will return the very first value from the object rest it will ignore
+
+     console.log(findpeople);
+
+
+	</script>
+
+</body>
+</html>

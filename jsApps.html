@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<!-- Bootstrap (optional for demo background) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container mt-4 mb-4">
+		
+		<h1 class="h1 mt-5 mb-5 text-center">Build YouTube Style Comment System Using JavaScript | Nested map() Explained</h1>
+
+		<h1 class="text-center">
+		JavaScript Array Tutorial.
+	   </h1>
+
+	   <div id="stars"></div>
+
+	</div>
+
+	<script>
+		 
+		const star = document.querySelector("#stars");
+        let html = "";
+
+		// Nested for Loop
+		// for every outer loop iteration the inner loop will reset
+		for (var i = 0; i < 5; i++) {
+
+            html += i + " : ";
+
+			for (var j = 0; j <= i; j++) {
+			  html += "* "
+			}
+			html += "<br>";
+		}
+        
+        star.innerHTML = html;
+
+        // 
+
+	</script>
+
+</body>
+</html>

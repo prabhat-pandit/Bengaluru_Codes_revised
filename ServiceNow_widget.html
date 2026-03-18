@@ -1,0 +1,240 @@
+Server Script:
+
+api.controller = function($scope) {
+    var c = this;
+
+    // Define State Data
+    c.data = {
+        countries: [],
+        error: null,
+        debug: null,
+		response: null,
+		statusCode:null,
+    };
+    c.loading = false;
+    c.showDebug = false;
+	c.searchQuery = ''; // search box binding
+
+    c.fetchCountries = function() {
+		// Reset state Naya, fetch start hone par pichla data hata do, spinner on karo.
+        c.loading = true;
+        c.data.countries = [];
+        c.data.error = null;
+        c.data.debug = null;
+
+        fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population,currencies')
+		.then(res => {
+			c.data.response = res.ok;
+			c.data.statusCode = res.status;
+            if(!res.ok) throw new Error('Network response was not ok');
+            return res.json();
+        })
+        .then(data => {
+            // Sort alphabetically by country name
+            data.sort((a,b) => a.name.common.localeCompare(b.name.common));
+
+            c.data.countries = data;
+            c.data.debug = { 
+				fetchedCount: data.length,
+				timestamp: new Date().toLocaleTimeString(),
+				response:c.data.response,
+				statusCode: c.data.statusCode,  // agar store kiya ho
+			};
+            c.loading = false;
+            $scope.$apply();
+        })
+        .catch(err => {
+            c.data.error = 'Failed to fetch countries';
+            c.loading = false;
+            console.error(err);
+            $scope.$apply();
+        });
+    };
+    
+	// Debug Panel Toggle Function
+    c.toggleDebug = function() {
+        c.showDebug = !c.showDebug;
+    };
+
+    // Refresh Function
+	c.refresh = function() {
+        c.searchQuery = '';
+        c.fetchCountries();
+    };
+
+    // Initial load
+    c.fetchCountries();
+
+
+c.getFilteredCountries = function(){
+
+	if(!c.searchQuery) return c.data.countries;
+
+	let search = c.searchQuery.toLowerCase();
+
+	return c.data.countries.filter(function(country){
+
+		let countryName = country.name.common 
+			? country.name.common.toLowerCase() 
+			: "";
+
+		let capital = country.capital && country.capital.length
+			? country.capital[0].toLowerCase()
+			: "";
+
+		return countryName.includes(search) || capital.includes(search);
+
+	});
+};
+
+};
+
+
+HTML Template:
+
+<div class="container mt5 mb-5 mt">
+  
+  <div class="mt-5 text-center">
+    <h1>ServiceNow Service Portal Widget with REST API, AngularJS, and Bootstrap Cards</h1>
+  </div>
+
+  <!-- Search Box -->
+  <div class="mb-3 mt-5">
+    <h2>Search Country by it's Name and Capital:</h2>
+    <input type="search" class="form-control" placeholder="Search country..." ng-model="c.searchQuery">
+  </div>
+
+  <!-- Toggle Debug Button -->
+  <button class="btn btn-sm btn-outline-secondary mb-3 mt-3" ng-click="c.toggleDebug()">
+    {{c.showDebug ? 'Hide Debug' : 'Show Debug'}}
+  </button>
+
+  <!-- Debug Panel -->
+  <div class="panel panel-info mb-3" ng-if="c.showDebug && c.data.debug">
+    <div class="panel-heading">
+      <h5 class="panel-title">
+       
+        <i class="fa fa-bug"></i> Debug Info
+        <button class="btn btn-xs btn-default float-end" ng-click="c.toggleDebug()">
+          Hide
+        </button>
+         
+      </h5>
+      <div ng-if="c.showDebug">
+            <h4>Debug Info:</h4>
+            <p>Response OK: {{c.data.response}}</p>
+            <p>Fetched Count: {{c.data.debug.fetchedCount}}</p>
+            <p>Timestamp: {{c.data.debug.timestamp}}</p>
+      </div>
+    </div>
+    <div class="panel-body">
+      <pre>{{c.data.debug | json}}</pre>
+    </div>
+  </div>
+  <!-- Debug Panel end -->
+
+  <!-- Loading Spinner -->
+  <div class="text-center" ng-if="c.loading">
+    <i class="fa fa-spinner fa-spin fa-2x"></i>
+    <h1 class="bold h1">Loading countries...</h1>
+  </div>
+
+  <!-- Error -->
+  <div class="alert alert-danger" ng-if="c.data.error">
+    <i class="fa fa-exclamation-circle"></i>
+    {{c.data.error}}
+  </div>
+  
+  <div class="btn btn-success refresh" ng-click="c.refresh()">Refresh</div>
+
+  <!-- Countries Cards -->
+  <div class="row g-3 equal-height" ng-if="!c.loading && c.data.countries && c.data.countries.length > 0">
+    
+    <!--<div class="col-md-3 col-sm-6" ng-repeat="country in c.data.countries | filter:{name:{common:c.searchQuery}}">!-->
+      
+      <div class="col-md-3 col-sm-6" ng-repeat="country in c.getFilteredCountries()">
+        
+      <div class="card h-100 shadow-sm">
+        <img ng-src="{{country.flags.png}}" class="card-img-top" alt="{{country.name.common}}" style="height:150px; object-fit:cover;">
+        <div class="card-body">
+          <h5 class="card-title">{{country.name.common}}</h5>
+          <p class="card-text">
+            <strong>Capital:</strong> {{country.capital[0] || 'N/A'}}<br>
+            <strong>Region:</strong> {{country.region}}<br>
+            <strong>Population:</strong> {{country.population | number}}<br>
+            
+            <span ng-if="country.currencies">
+              <strong>Currencies: </strong> <span ng-repeat="(key, currency) in country.currencies">
+                {{currency.name}} ({{currency.symbol}})
+                <span ng-if="!$last">, </span>
+              </span>
+            </span>
+            <span ng-if="!country.currencies">N/A</span>
+            
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No countries found -->
+  <!--<div class="alert alert-info" ng-if="!c.loading && (!c.data.countries || (c.data.countries | filter:{name:{common:c.searchQuery}}).length === 0) && !c.data.error">!-->
+    <div class="alert alert-info" ng-if="!c.loading && c.getFilteredCountries().length === 0 && !c.data.error">
+    <i class="fa fa-info-circle"></i> No countries match your search!
+    </div>
+
+</div>
+
+
+CSS:
+
+.card{
+ border: thin solid gainsboro;
+ padding:10px;
+ box-sizing:border-box;
+ box-shadow: 2px 1px 20px rgba(0,0,0,0.3);
+ border-radius:10px;
+ margin-top:13px !important;
+ margin-bottom:13px !important;
+}
+.card-img-top{
+  height:150px; 
+  object-fit:cover;
+  width:100%;
+  border-radius:10px;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    /*height: 100%;*/ /* full height in column */
+}
+
+.card-body {
+    flex: 1 1 auto; /* fill remaining space */
+}
+
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+.btn-outline-secondary{
+   margin-top:13px;
+   margin-bottom:13px;
+}
+.mt-5{
+  margin-top:40px;
+}
+.bold{
+  font-size:40px !important;
+}
+.refresh{
+  position:absolute;
+  top:310px;
+  right:0px;
+  z-index:1000;
+}
+.mt{
+    margin-top:60px;
+    margin-bottom:60px;
+}
+

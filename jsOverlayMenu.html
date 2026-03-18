@@ -288,6 +288,112 @@
 
 		});
 
+
+		setTimeout(function() {
+        $scope.$apply(function() {
+          c.successMsg = "";
+        });
+      }, 3000);
+
+
+
+
+     $timeout(function() {
+        c.successMsg = "";
+      }, 3000);
+
+     setTimeout(function() {
+          c.successMsg = "";
+    }, 500);
+
+
+
+   api.controller = function(spUtil) {
+  var c = this;
+
+  c.user = {};
+
+  c.submit = function() {
+
+    c.server.get({
+      action: "insertUserPrabhat",  // 👈 server action name same hona chahiye
+      data: c.user
+    }).then(function(response) {
+
+      // 👇 YAHI jagah hai use karne ki
+      if (response.data.status === "success") {
+
+        spUtil.addInfoMessage("Data Saved Successfully ✅");
+        c.user = {}; // form reset
+
+      } else {
+
+        spUtil.addErrorMessage("Data not saved ❌");
+
+      }
+
+    });
+
+  };
+
+};
+
+
+
+......
+
+emailAddres
+u_emailaddres
+
+
+api.controller=function(spUtil, $timeout) {
+  /* widget controller */
+  var c = this;
+
+c.user = {};
+c.successMsg = "";
+
+
+    c.submit = function() {
+
+	c.loading = true;
+
+    c.server.get({
+            action: "insertUserPrabhat",
+            data: c.user
+    }).then(function(response) {
+	c.loading = false;
+	c.successMsg = "Data Saved Successfully ✅";
+        // alert("Data Saved Successfully ✅");
+
+    c.user = {}; // clear form fields
+	spUtil.addInfoMessage("Data Saved Successfully ✅"); // ServiceNow ka best & standard way hai message dikhane ka
+
+	// 👇 YAHI jagah hai use karne ki
+      if (response.data.status === "success") {
+
+        spUtil.addInfoMessage("Data Saved Successfully ✅");
+        c.user = {}; // form reset
+
+      } else {
+
+        spUtil.addErrorMessage("Data not saved ❌");
+
+      }
+
+	$timeout(function() {
+        c.successMsg = "";
+    }, 3000);
+
+
+    });
+
+    };
+
+};
+
+
+
 	</script>
 
 </body>

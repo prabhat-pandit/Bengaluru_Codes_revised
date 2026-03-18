@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>javaScript Array Class</title>
+	<style>
+	 .card{
+			border:1px solid #ddd;
+			padding:15px;
+			margin:10px;
+			width:250px;
+			box-shadow:0 0 5px rgba(0,0,0,0.1);
+			}
+	.comment{
+border:1px solid #ddd;
+padding:15px;
+margin:10px 0;
+}
+
+.comment-header{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.replies{
+margin-left:40px;
+margin-top:10px;
+}
+
+.reply{
+margin-top:8px;
+}
+	</style>
+</head>
+<body>
+
+	<h1 class="text-center">
+		JavaScript Array Tutorial.
+	</h1>
+
+	<div class="name" id="name"></div>
+	<div id="container"></div>
+	<div id="container1"></div>
+
+
+	<div id="star"></div>
+
+
+
+<script>
+
+	let star = document.querySelector("#star");
+    let html3 = "";
+	for (var i = 0; i < 5; i++) {
+		console.log("i is: " + i);
+		for (var j = 0; j <= i; j++) {
+			console.log("J is: " + j);
+		}
+	}
+
+
+	for (var i = 0; i < 5; i++) {
+		html3 += i + " : ";
+		
+		for (var j = 0; j <= i; j++) {
+            html3 += "* ";
+		}
+	    html3 += "<br>";
+	}
+	star.innerHTML = html3;
+
+// i = 0, j = 0. 1 star print
+// i = 1, j = 0, 1. 2 stars print
+// i = 2, j = 0, 1, 2. 3 stars print
+// i = 3, j = 0, 1, 2, 3. 4 stars print
+// i = 4, j = 0, 1, 2, 3, 4. 5 stars print 
+
+// i = 0, 0 <= 0, true, J = 1 baar print karega. 0{*}
+// i = 1, 0 <= 1, true, j = 2 baar print karega. 0, 1
+// i = 2, 0 <= 2, true, j = 3 baar print karega, 0, 1, 2
+// i = 3, 0 <= 3, true, j = 4 baar print karega, 0, 1, 2, 3
+// i = 4, 0 <= 4, true, j = 5 baar print karega, 0, 1, 2, 3, 4
+
+// i = 5, 0 <= 5, true, j = 4 baar print karega, 0, 1, 2, 3, 4, 5 // less than i < 5 ke liye yeh line false hai, 
+// 5<5, false hota hai
+	
+	const users = [
+		{
+			name:"Prabhat Pandit",
+			skills: ["javaScript", "React", "CSS3", "HTML5", "Vue", "Angular"]
+		},
+		{
+			name:"Pooja Kumari",
+			skills: ["Wordpress", "Python", "PHP", "AI", "Machine Learning"]
+		},
+		{
+			name:"Deepak Kumar",
+			skills: ["java", "Joomla", "laravel", "Artificial Intelligence", "Vue"] 
+		}
+	];
+
+        let userName = document.querySelector("#name");
+		let html = "";
+
+	for (var i = 0; i < users.length; i++) {
+		
+		console.log(users[i].name); // Print user name: "Prabhat Pandit", "Pooja Kumari", "Deepak Kumar"
+		html += `<h2>${users[i].name}</h2>`;
+		html += `<ul>`;
+
+		for (var j = 0; j < users[i].skills.length; j++) {
+			console.log(users[i].skills[j]); // Print all The Skills of Respective Users
+		    html += `<li>${users[i].skills[j]}</li>`;
+		}
+        html += `</ul>`;
+	}
+	userName.innerHTML = html;
+
+
+
+	let container = document.querySelector("#container");
+
+    container.innerHTML = users.map(user => `
+	
+	<div class="card">
+		<h2>${user.name}</h2>
+		
+		<ul>
+			${user.skills.map(skill => `<li>${skill}</li>`).join("")}
+		</ul>
+	
+	</div>`).join("");
+
+
+
+	const comments = [
+{
+	id: 1,
+	userName: "Rahul Sharma",
+	userImage: "https://i.pravatar.cc/50?img=1",
+	text: "This tutorial is really helpful. Thanks for explaining nested loops so clearly!",
+	likes: 12,
+	time: "2 hours ago",
+	replies: [
+		{
+			userName: "Prabhat Pandit",
+			userImage: "https://i.pravatar.cc/50?img=2",
+			text: "Glad it helped you Rahul 😊",
+			likes: 4,
+			time: "1 hour ago"
+		},
+		{
+			userName: "Amit Verma",
+			userImage: "https://i.pravatar.cc/50?img=3",
+			text: "Yes bro same here. Very clear explanation.",
+			likes: 2,
+			time: "45 minutes ago"
+		}
+	]
+},
+{
+	id: 2,
+	userName: "Neha Singh",
+	userImage: "https://i.pravatar.cc/50?img=4",
+	text: "Can you make a video on JavaScript map vs forEach?",
+	likes: 8,
+	time: "3 hours ago",
+	replies: [
+		{
+			userName: "Prabhat Pandit",
+			userImage: "https://i.pravatar.cc/50?img=2",
+			text: "Yes sure, I will upload it soon on my channel.",
+			likes: 5,
+			time: "2 hours ago"
+		}
+	]
+},
+{
+	id: 3,
+	userName: "Vikram Patel",
+	userImage: "https://i.pravatar.cc/50?img=5",
+	text: "Can you also explain async/await with real examples?",
+	likes: 6,
+	time: "4 hours ago",
+	replies: [
+		{
+			userName: "Rohit Kumar",
+			userImage: "https://i.pravatar.cc/50?img=6",
+			text: "Yes bro async await is confusing for beginners.",
+			likes: 2,
+			time: "3 hours ago"
+		},
+		{
+			userName: "Prabhat Pandit",
+			userImage: "https://i.pravatar.cc/50?img=2",
+			text: "Sure, I will cover async await in the next video.",
+			likes: 3,
+			time: "2 hours ago"
+		}
+	]
+},
+{
+	id: 4,
+	userName: "Pooja Kumari",
+	userImage: "https://i.pravatar.cc/50?img=7",
+	text: "Your explanations are very easy to understand. Keep it up!",
+	likes: 15,
+	time: "5 hours ago",
+	replies: [
+		{
+			userName: "Deepak Kumar",
+			userImage: "https://i.pravatar.cc/50?img=8",
+			text: "Yes his teaching style is really good.",
+			likes: 3,
+			time: "4 hours ago"
+		}
+	]
+},
+{
+	id: 5,
+	userName: "Ankit Singh",
+	userImage: "https://i.pravatar.cc/50?img=9",
+	text: "Please make a full playlist on JavaScript arrays and objects.",
+	likes: 9,
+	time: "6 hours ago",
+	replies: [
+		{
+			userName: "Prabhat Pandit",
+			userImage: "https://i.pravatar.cc/50?img=2",
+			text: "Yes Ankit, I am planning a full JavaScript series.",
+			likes: 4,
+			time: "5 hours ago"
+		},
+		{
+			userName: "Rahul Sharma",
+			userImage: "https://i.pravatar.cc/50?img=1",
+			text: "That would be really helpful for beginners.",
+			likes: 2,
+			time: "4 hours ago"
+		}
+	]
+}
+];
+
+
+	let container1 = document.querySelector("#container1");
+
+container1.innerHTML = comments.map(comment => `
+	
+	<div class="comment">
+
+		<div class="comment-header">
+			<img src="${comment.userImage}" width="40" height="40">
+			<strong>${comment.userName}</strong>
+			<small>${comment.time}</small>
+		</div>
+
+		<p>${comment.text}</p>
+		<span>👍 ${comment.likes}</span>
+
+		<div class="replies">
+
+			${comment.replies.map(reply => `
+			
+				<div class="reply">
+					<img src="${reply.userImage}" width="30" height="30">
+					<strong>${reply.userName}</strong>
+					<p>↳ ${reply.text}</p>
+					<small>${reply.time}</small>
+				</div>
+
+			`).join("")}
+
+		</div>
+
+	</div>
+
+`).join("");
+</script>
+
+
+<!-- ng-repeat="(key, value) in coutries.currencies" -->
+
+</body>
+</html>

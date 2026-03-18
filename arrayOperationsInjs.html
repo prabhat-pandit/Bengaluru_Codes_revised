@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+</head>
+<body>
+
+
+	<div>
+		<h1>JavaScript Array Operations</h1>
+	</div>
+
+	<script>
+		
+		const arr = [2, 4, 5, 6, 17, 10, 3, 90, 0, -1];
+
+		// Double The every Elements in an Array
+
+		function fun1(arr){
+
+			if(arr.length === 0) return 0;
+
+			let doubleArr = [];
+
+			for (let i = 0; i < arr.length; i++) {
+				doubleArr.push(arr[i] * 2);
+			}
+			return doubleArr;
+		}
+
+		console.log(fun1([...arr]));
+		console.log("Double The Every Elements in the Array: " + fun1(arr));
+
+		// Find the max element in the Array
+        function fun2(arr){
+
+        	if(arr.length === 0) return 0;
+
+        	let max = arr[0];
+
+        	for (let i = 0; i < arr.length; i++) {
+
+        		if(arr[i] > max){
+        			max = arr[i];
+        		}
+        	}
+        	return max;
+        }
+        console.log("Max element in the Array: " + fun2(arr));
+
+        // Find the Min element from the Array
+
+        function fun3(arr){
+
+        	if(arr.length === 0) return 0;
+
+        	let min = arr[0];
+
+        	for (let i = 0; i < arr.length; i++) {
+        		if(arr[i] < min){
+                  min = arr[i];
+        		}
+        	}
+           return min;
+        };
+        console.log("Min element in the Array: " + fun3(arr));
+
+
+        // Find The sum of the element of the given array
+        function fun4(arr){
+        	if (arr.length === 0) return 0;
+
+        	let sum = 0;
+        	for (let i = 0; i < arr.length; i++) {
+        		sum += arr[i];
+        	}
+        	return sum;
+        }
+        console.log("Sum of the Elements: " + fun4([...arr]));
+
+        // Find the sum Of the even Element in the array
+        function fun5(arr){
+         
+         if(arr.length === 0) return 0;
+
+         let evenSum = 0;
+          
+         for (let i = 0; i < arr.length; i++) {
+         	 if(arr[i] % 2 === 0){
+         	 	evenSum += arr[i];
+         	 }
+         }
+         return evenSum;
+        }
+        console.log("Sum of Even Elements from the Array: " +fun5([...arr]));
+
+        // Find The Sum of all The Odd Elements from the Array
+
+        function fun6(arr){
+
+        	if(arr.length === 0) return 0;
+
+        	let oddSum = 0;
+
+        for (let i = 0; i < arr.length; i++) {
+        	if(arr[i] % 2 !== 0){
+        		oddSum += arr[i];
+        	}
+        }
+        return oddSum;
+        }
+        console.log("Sum of Odd Elements from the Array: " + fun6(arr));
+
+
+        // Create an array from the Even Elements from the array
+        function evenArray(arr){
+
+        	if (arr.length === 0) return 0;
+
+        	let evenArr = [];
+
+        	for (let i = 0; i < arr.length; i++) {
+        		if(arr[i] % 2 === 0){
+        			evenArr.push(arr[i]);
+        		}
+        	}
+
+        	return evenArr;
+        }
+        console.log(evenArray([...arr]));
+
+        // Create an array of all the odd elements from the given array
+        function fun7(arr){
+
+        	if(arr.length === 0) return 0;
+
+        	let oddArray = [];
+
+        	for (let i = 0; i < arr.length; i++) {
+        		if(arr[i] % 2 !== 0){
+                 oddArray.push(arr[i]);
+        		}
+        	}
+        	return oddArray;
+        }
+        console.log(fun7([...arr]));
+
+        const arr2 = [2, 3, 3, 3, 2, 4, 7, 10, -2, 0, -2, -1, 4]; // 5 odd elements
+
+        // Create Unique Array from the Given Array
+
+        function fun8(arr2){
+
+        	if (arr2.length === 0) return 0;
+
+        	let uniqueArray = [];
+
+        	for (var i = 0; i < arr2.length; i++) {
+        		if(!uniqueArray.includes(arr2[i]))
+        		{
+        			uniqueArray.push(arr2[i]);
+        		}
+        	}
+        	return uniqueArray;
+        }
+        console.log(fun8(arr2));
+
+        let uniValue =  [...new Set(arr2)].map(arr => arr * 2).reduce((curr, sum) => curr + sum, 0);
+
+        console.log(uniValue);
+
+        // Count how many odd elements in the given array
+
+        function fun9(arr2){
+        	if (arr2.length === 0) return 0;
+
+        	let oddElementsCount = 0;
+
+        	for (let i = 0; i < arr2.length; i++) {
+        		if(arr2[i] % 2 !== 0){
+                 oddElementsCount++;
+        		}
+        	}
+        	return oddElementsCount;
+        }
+        console.log(" Odd Elements Counts:" + fun9(arr2));
+
+        // Count how many even elements in the given array
+
+        function fun10(arr2){
+
+        	if(arr2.length === 0) return 0;
+
+        	let evenElementsCounts = 0;
+
+        	for (let i = 0; i < arr2.length; i++) {
+        	if(arr2[i] % 2 === 0){
+        		evenElementsCounts++;
+        	}
+        	}
+        	return evenElementsCounts;
+        }
+        console.log(" Even Elements Counts:" + fun10(arr2));
+
+
+
+        // Find the Average of the elements of array
+        function average(arr2){
+
+        	if(arr2.length === 0) return 0;
+
+        	let SumOfallElement = 0;
+
+        	for (let i = 0; i < arr2.length; i++) {
+
+                SumOfallElement = SumOfallElement + arr2[i];
+        	
+        	}
+        	return SumOfallElement / arr2.length;;
+        }
+        console.log(" Average of All the Elements:" + average(arr2));
+	</script>
+
+</body>
+</html>

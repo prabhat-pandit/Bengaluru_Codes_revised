@@ -234,6 +234,38 @@
 
 </div>
 
+
+
+<!-- your widget template -->
+  
+  
+  <div class="container mt">
+
+      <h2 class="heading">User Registration Form : Form Field to Database Mapping in ServiceNow</h2>
+
+      <input type="text" ng-model="c.user.name" placeholder="Name.." class="form-control"><br>
+
+      <input type="email" ng-model="c.user.email" placeholder="Email Address" class="form-control"><br>
+        
+      <input type="email" ng-model="c.user.confirm_email" placeholder="Confirm Email Address" class="form-control"><br>
+
+      <input type="text" ng-model="c.user.mobile" placeholder="Mobile Number" class="form-control"><br>
+
+      <textarea ng-model="c.user.address" placeholder="Address" class="form-control"></textarea><br>
+
+      <button class="btn btn-primary" ng-click="c.submit()">Submit</button>
+      
+      
+      <div ng-if="c.loading"><h1>Saving Data, Please Wait a While...</h1></div>
+      
+      <div class="alert alert-success mt-3" ng-if="c.successMsg">
+        {{c.successMsg}}
+      </div>
+    
+  </div>
+  
+  
+
 <script>
 	// Professional sites me jab overlay open hota hai to background scroll disable hota hai:
 

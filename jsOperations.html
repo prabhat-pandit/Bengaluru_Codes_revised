@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="container mt-5 mb-5 text-center">
+		<h1 class="h1">JavaScript Array Operations [Array Reverse]</h1>
+		<input type="text" title="I Love React" name="name">
+	</div>
+
+	<script>
+		
+		let str = "Hello World I Love React a Lot";
+		let str1 = str.split(" "); // split(" ") will convert the String into an Array
+		console.log(str1);
+
+        // reverse() method will change or Mutate the original array as well.
+		let reversedStr = [...str1].reverse();
+		console.log(reversedStr);
+
+		console.log(str);
+
+
+		// Reverse The String[Array]
+
+		let str2 = "Please Guys Do Subscribe Now";
+		let reversedStr1 = str2.split(" ").reverse();
+		console.log(reversedStr1);
+
+        
+        // Reverse The Array [number Array]
+
+        let numArr = [4, 7, 0, -1, -2, 1, 4, 6, 19];
+        let reversedNum = [...numArr].reverse();
+        console.log(reversedNum);
+        console.log(numArr);
+
+
+        // Reverse The Number Array using Filter Method
+
+          let numArr1 = [6, 7, 0, 0, 0, -1, -10, 2, 5, -2];
+          let convertedNum = numArr1.filter(num => num !== undefined).reverse();
+          console.log(convertedNum);
+
+
+         // Reverse The String Array using Filter Method
+
+        let strArr = "Hello World Would You be Kind To Me";
+        let reversedStr3 = strArr.split(" ").filter(str => str).reverse();
+        console.log(reversedStr3);
+
+        // Reverse The String Array using in-built method
+        let strArr4 = "Hello Wolrd Please Be little Kind To The Poor People";
+        let reversedStr4 = strArr4
+                           .split(" ")
+                           .reverse();
+            console.log(reversedStr4);
+
+        console.log(strArr4.split(" "));
+
+
+        // Reverse Only Even Numbers using for Loop
+
+        let numArray5 = [3, 4, 9, 2, 20, -1, -2, -5, 50, 7];
+
+        function func1(numArray5){
+
+        	if (numArray5.length === 0) return 0;
+
+        	let newStr = [];
+
+        	for (let i = numArray5.length - 1; i >= 0; i--) {
+        		 if(numArray5[i] % 2 === 0){
+        		 	newStr.push(numArray5[i]);
+        		 }
+        	}
+        	return newStr;
+        }
+        console.log(func1(numArray5));
+
+
+        // Reverse Only Even Numbers using filter method
+        let res = numArray5.filter(num => num % 2 === 0).reverse();
+        console.log(res);
+
+        
+        // Reverse Only Odd Numbers using for Loop
+
+        function func2(numArray5){
+
+        	if (numArray5.length === 0) return 0;
+
+        	let newStr = [];
+
+        	for (let i = numArray5.length - 1; i >= 0; i--) {
+        	    if(numArray5[i] % 2 !== 0){
+        	    	newStr.push(numArray5[i]);
+        	    }
+        	}
+        	return newStr;
+        };
+        console.log(func2(numArray5));
+
+
+        // Reversed The String Using For Loop
+
+
+        let str10 = "Reversed The String Using For Loop"; 
+
+        function func3(str10){
+
+        	if(!str10) return "No String Found";
+
+        	let word = str10.split(" ");
+        	let newStr = [];
+
+        	for (let i = word.length - 1; i >= 0; i--) {
+        		newStr.push(word[i]);
+        	}
+
+        	return newStr;
+
+        };
+
+        console.log(func3(str10));
+
+        let num = 123456;
+
+        let reversedNum10 = num.toString().split("").reverse();
+        console.log(reversedNum10);
+
+
+
+
+	</script>
+
+</body>
+</html>

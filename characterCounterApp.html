@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+	<div class="container mt-4 mb-4">
+		<div class="text-center mt-3 mb-3">
+			<h1 class="text-center mb-4">Advanced Character and Word Counter App in JavaScript</h1>
+		</div>
+
+        <div class="textarea">
+        	<textarea rows="5" class="form-control" placeholder="Type Your Text Here..." id="textInput"></textarea>
+        </div>
+
+        <div class="data-container mt-3 mb-3">
+        	
+        	<p class="h4">
+        		Characters Counts: <span id="charCount">0</span>
+        	</p>
+
+        	<p class="h4">
+        		Characters Counts (Without Spaces): <span id="charCountwithoutspaces">0</span>
+        	</p>
+
+        	<p class="h4">
+        		Words Counts: <span id="wordCount">0</span>
+        	</p>
+
+        </div>
+
+        <div class="mt-3 mb-3 progress position-relative overflow-visible">
+        	  <div class="progressBar progress-bar bg-success" id="progressBar" style="width:0%;"></div>
+        	  <div class="percentage" id="percentage">0%</div>
+        </div>
+
+        <div class="mt-3 mb-3">
+        	<p class="h4 text-muted">
+        		Limit: <span>200 Characters</span>
+        	</p>
+        	<p class="h4 text-muted">
+        		Remaining: <span id="remaining">200</span> Characters
+        	</p>
+        </div>
+
+	</div>
+
+    <script>
+    	
+    	const textInput = document.querySelector("#textInput");
+    	const charCount = document.querySelector("#charCount");
+    	const charCountwithoutspaces = document.querySelector("#charCountwithoutspaces");
+    	const wordCount = document.querySelector("#wordCount");
+    	const progressBar = document.querySelector("#progressBar");
+    	const percentage = document.querySelector("#percentage");
+    	const remaining = document.querySelector("#remaining");
+
+        const limit = 200;
+
+    	textInput.addEventListener("input", function(){
+
+           const text = this.value;
+           console.log(text);
+
+           const characters = text.length;
+           console.log(characters);
+
+           charCount.innerText = characters;
+
+           const noSpaces = text.replace(/\s/g, "").length;
+           charCountwithoutspaces.innerText = noSpaces;
+
+           const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+           wordCount.innerText = words.length;
+
+    	});
+
+    </script>
+
+
+</body>
+</html>

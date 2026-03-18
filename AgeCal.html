@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f0f2f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a73e8;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #e8f0fe;
+            border-radius: 5px;
+            display: none;
+        }
+        .result h2 {
+            color: #1a73e8;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+        .age-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .error {
+            color: #d32f2f;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Age Calculator</h1>
+        
+        <div class="input-group">
+            <label>Choose Your Date of Birth:</label>
+            <input type="date" id="birthdate">
+        </div>
+        
+        <button onclick="calculateAge()">Calculate Age</button>
+        
+        <div class="result" id="result">
+            <h2>Your Age:</h2>
+            <div class="age-value" id="ageDisplay"></div>
+        </div>
+        
+        <div class="error" id="error"></div>
+    </div>
+
+    
+        <div class="input-group">
+            <label>अपनी जन्म तिथि चुनें:</label>
+            <input onchange="calAge()" type="date" id="date">
+            <div class="age-value" id="ageDisplayResutl"></div>
+        </div>
+
+
+     <script>
+
+        function calAge() {
+
+                const birthdate = document.getElementById('date');
+                const resultShow = document.querySelector("#ageDisplayResutl");
+
+                // const birthDate1 = new Date(birthdate.value);
+
+                // const today1 = new Date();
+
+                // Pehle check karo date hai ya nahi
+                if(!birthdate.value) {
+                    // Age calculation logic yahan aayegi
+
+                    // alert('Date selected: ' + birthdate.value);
+
+                    // const birthDate1 = new Date(birthdate.value);
+
+                    // const today1 = new Date();
+
+                    // const year = today1.getFullYear() - birthDate1.getFullYear();
+                    // const months = today1.getMonth() - birthDate1.getMonth();
+                    // const days = today1.getDate() - birthDate1.getDate();
+
+                    // // resultShow.innerHTML = birthdate.value;
+
+                    // console.log(`Year: ${year}`);
+                    // console.log(`Months: ${months}`);
+                    // console.log(`Date(Today): ${days}`);
+
+                    // console.log("BirthDate :" + birthDate1);
+                    // console.log("Today: " + today1.getDate());
+                    // console.log("TODAY: " + today1);
+
+                    resultShow.innerHTML = "Please select date";
+                    return;
+                }
+
+
+                // AB declare karo - kyuki date exist karti hai
+                // Step 3: AB safely date objects banao (kyuki value exist karti hai)
+                const birthDate1 = new Date(birthdate.value);
+                const today1 = new Date();
+
+                 // Validate karen ki date valid hai ya nahi
+                    if (isNaN(birthDate1.getTime())) {
+                        resultShow.innerHTML = 'कृपया सही तिथि चुनें';
+                        return;
+                    }
+
+                // Step 4: Future date check
+                if(birthDate1 > today1){
+                      console.log('sadsad');
+                      resultShow.innerHTML = "Not Allowed";
+                      // console.log(isNaN(birthDate1.getTime()));
+                      return;
+                   } 
+
+
+        };
+         
+         // function calAge(){
+
+         //    const birthdateInput1 = document.getElementById('birthdate');
+
+         //     // Date objects create karen
+         //     const birthDate1 = new Date(birthdateInput1.value);
+         //     const today1 = new Date();
+
+
+         // };
+
+         // function Alert(){
+         //    alert("Hello");
+         // };
+
+     </script>
+
+
+    <script>
+
+        console.log(new Date("2024-02-30"));
+        
+    
+     function calculateAge() {
+    // Input fields ko get karen
+    const birthdateInput = document.getElementById('birthdate');
+    const resultDiv = document.getElementById('result');
+    const ageDisplay = document.getElementById('ageDisplay');
+    const errorDiv = document.getElementById('error');
+    
+    // Error aur result clear karen
+    errorDiv.innerHTML = '';
+    resultDiv.style.display = 'none';
+    
+    // Check karen ki date select ki gayi hai ya nahi
+    if (!birthdateInput.value) {
+        errorDiv.innerHTML = 'कृपया अपनी जन्म तिथि चुनें';
+        return;
+    }
+    
+    // Date objects create karen
+    const birthDate = new Date(birthdateInput.value);
+    const today = new Date();
+    
+    // Validate karen ki date valid hai ya nahi
+    if (isNaN(birthDate.getTime())) {
+        errorDiv.innerHTML = 'कृपया सही तिथि चुनें';
+        return;
+    }
+    
+    // Check karen ki birth date future ki toh nahi hai
+    if (birthDate > today) {
+        errorDiv.innerHTML = 'जन्म तिथि भविष्य में नहीं हो सकती';
+        return;
+    }
+    
+    // Age calculate karen
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+    
+    // Days negative hone par adjust karen
+    if (days < 0) {
+        months--;
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0); // year, month(zero based), day
+        days += lastMonth.getDate();
+    }
+    
+    // Months negative hone par adjust karen
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    
+    // Final age display karen
+    let ageText = '';
+    
+    if (years > 0) {
+        ageText += years + ' वर्ष ';     // 01-03-2026 :  your age: 1 day. // 02-03-2026 
+    }
+    if (months > 0 || years > 0) {
+        ageText += months + ' महीने ';
+    }
+    ageText += days + ' दिन';
+    
+    // Agar koi 1 se kam ho to bhi dikhaye
+    if (years === 0 && months === 0 && days === 0) {
+        ageText = 'आज ही का दिन है! जन्मदिन मुबारक हो! 🎉';
+    }
+    
+    // Result show karen
+    ageDisplay.innerHTML = ageText;
+    resultDiv.style.display = 'block';
+}
+
+// Extra feature: Exact age in months and days bhi dikhaye
+function getExactAge() {
+    const birthdateInput = document.getElementById('birthdate');
+    
+    if (!birthdateInput.value) return;
+    
+    const birthDate = new Date(birthdateInput.value);
+    const today = new Date();
+    
+    // Total days calculate karen
+    const diffTime = Math.abs(today - birthDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const totalMonths = Math.floor(diffDays / 30.44); // Average days in a month
+    const remainingDays = Math.floor(diffDays % 30.44);
+    
+    console.log(`कुल दिन: ${diffDays} दिन`);
+    console.log(`कुल महीने: ${totalMonths} महीने और ${remainingDays} दिन`);
+}
+
+// Enter key se bhi calculate kar sakte hain
+document.getElementById('birthdate').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        calculateAge();
+    }
+});
+
+
+    // Date objects create karen
+    // const birthDate = new Date(birthdateInput.value);
+
+    const birthDate = new Date(27/3/2020);
+    const today = new Date();
+   
+   console.log(birthDate);
+   console.log(today);
+   console.log(today.getFullYear());
+   console.log(today.getMonth() + 1);
+   console.log(birthDate.getFullYear());
+   console.log(birthDate.getMonth() + 1);
+
+   function capitalize(str){
+       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+   };
+
+   console.log(capitalize("prabhat"));
+
+   const sentence = "I love code in serviceNow and javaScript";
+   const arr = sentence.split(" ");
+   console.log(arr);
+
+  
+   function capitalizeSentence(str){
+
+     const strCap = arr.map((str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()).join(" ");
+
+     return strCap;
+
+   };
+
+   console.log(capitalizeSentence(sentence));
+
+    </script>
+
+
+    bhai mera DOB hai 02-03-1994 and aaj hai 02-03-2026.. toh mera age kaise calculate hoga?
+
+
+
+    Year ; 2026-1994 =  32
+    Month: 3-3 = 0 (jan), cuz month in js is zero based
+    Day: 2-2 = 0
+
+    toh 32 saal jan,
+</body>
+</html>

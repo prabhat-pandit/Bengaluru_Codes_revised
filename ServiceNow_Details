@@ -1,0 +1,74 @@
+
+
+
+
+
+
+https://dev198638.service-now.com/login.do?user_name=admin&sys_action=sysverb_login&user_password=%40Od4-jNt4DWu
+
+
+UserName: admin
+password: @Od4-jNt4DWu
+User Role: admin
+
+
+https://dev198638.service-now.com/pp_100?id=73854
+
+
+
+Steps to create a table or custom Table in ServiceNow
+
+1: Filter Navigator -> system Definition.
+2: Click New button to create a custom Table.
+3: 
+
+
+Table_Record{
+	Label: "User Data"
+	Name: "u_user_data"
+}
+
+Widgets{
+	Name:Prabhat_form_widget
+	ID:313131
+}
+Page{
+	Title:prabhat cutom form page
+	ID:24253
+}
+Portal{
+	Title:prabhat_portal_page
+	URL Suffix: pp_232
+}
+
+ To see the Table data we have just saved "u_user_data.list"
+
+
+
+Table_Record{
+	Label: "prabhat_pandit_youtube"
+	Name: "u_prabhat_pandit_youtube"
+}
+
+Widgets{
+	Name: prabhat_pandit_widget
+	ID:837587845
+}
+Page{
+	Title:prabhat_pandit_page
+	ID:7657454
+}
+Portal{
+	Title: prabhat_pandit_portal
+	URL Suffix:pp_2000
+}
+
+
+
+u_name
+u_email
+u_confirm_email
+u_phone
+u_address
+
+
