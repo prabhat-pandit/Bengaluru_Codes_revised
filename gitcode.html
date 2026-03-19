@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+     .card-title{
+     	font-size: 17px;
+     }
+     .card{
+     	transform: translateY(0px);
+     	transition: all 0.3s ease;
+     }
+     .card:hover{
+     	transform: translateY(-15px);
+     	transition: all 0.3s ease;
+     }
+    </style>
+</head>
+<body>
+
+	<div class="container mt-4 mb-4">
+
+		<div class="text-center">
+			<h1>JavaScript Project for Beginners: API Fetch + Search + Error Handling (Step-by-Step)
+			</h1>
+		</div>
+
+        <label>Search User By Name</label>
+		<div class="input-group mt-1 mb-3">
+			<input type="search" 
+			  placeholder="Search User Here by Name.." 
+			  class="form-control"
+              id="textInput" 
+			>
+		</div>
+		
+		<button id="seven" class="btn btn-dark btn-sm">Retry Again</button>
+		<div class="row justify-content-center" id="dataRender"></div>
+		<div class="error" id="error"></div>
+
+	</div>
+
+	<script>
+		
+		document.addEventListener("DOMContentLoaded", function(){
+
+		let btn = document.querySelector("#seven");
+		let errorText = document.querySelector("#error");
+		let dataRender = document.querySelector("#dataRender");
+		let textInput = document.querySelector("#textInput");
+
+		let allUsersArray = [];
+
+		
+		let fetchUserData = () => {
+                   btn.innerText = "Loading...";
+                   errorText.innerText = "";
+                   dataRender.innerHTML = ""; // Loading pe cards clear kar:
+                   btn.setAttribute("disabled", true);
+			       fetch(`https://jsonplaceholder.typicode.com/users`)
+			       .then(response => {
+			       	if(!response.ok) {
+			       		throw new Error("Network Not Working at This Moment");
+			       	}
+			 
+			         console.log(response);
+			         return response.json();
+
+			       })
+			       .then(data => {
+			       	btn.innerText = "Retry Again";
+			       	btn.removeAttribute("disabled");
+			       	errorText.innerText = "";
+
+			       	allUsersArray = data.map(user =>({
+                          ...user,
+                          profile:"Developer",
+                          actitve: "actitve",
+                          salary: 45000,
+                          age:30,
+                          bg_color:"#" + Math.floor(Math.random()*16777215).toString(16),
+			       	}))
+
+
+			        console.log(allUsersArray);
+			       	renderUsers(allUsersArray);
+			       })
+			       .catch((error) =>{
+			      	console.log(error.message);
+			      	btn.innerText = "Retry Again";
+			      	btn.removeAttribute("disabled");
+			      	errorText.innerText = error.message;
+			      });
+
+		};
+
+
+        // calling the function when page loads for the first time.
+		fetchUserData();
+
+		    btn.addEventListener("click", ()=>{
+		    	fetchUserData();
+		    });
+
+	
+
+
+		textInput.addEventListener("input", function(){
+
+		let text = this.value.toLowerCase();
+
+        // agar user kuch type nahi kare:
+		if(text === ""){
+            renderUsers(allUsersArray);
+           return;
+         }
+
+		const filteredUser = allUsersArray.filter(user => 
+			user.name.toLowerCase().includes(text)
+		);
+
+		if(filteredUser.length === 0){
+         dataRender.innerHTML = "<h4 class='text-center'>No Users Found</h4>";
+        return;
+        }
+
+		renderUsers(filteredUser);
+		});
+
+
+		function renderUsers(users){
+			dataRender.innerHTML = users.map(user => `
+                        
+                        <div class="col-lg-3 text-left col-sm-12 col-xs-12 col-md-4">
+                           <div class="card shadow-lg text-white mt-3 mb-3" style="background:${user.bg_color}">
+                             <div class="card-body">
+                             <h4 class="card-title">Name: ${user.name}</h4>
+			       		     <p>User Name: ${user.username}</p>
+			       		     <p>E-mail: ${user.email}</p>
+			       		     <p>City: ${user?.address?.city}</p>
+			       		     <p>Address: ${user?.address?.street}</p>
+			       		     <p>Website: 
+			       		     <a href="https://${user.website}" target="_blank" class="text-decoration-none text-white">
+			       		         Visit Website
+			       		     </a>
+			       		     </p>
+			       		     <p>Salary: ${user.salary}</p>
+			       		     <p>Profile: ${user.profile}</p>
+                            </div>
+			       		   </div>
+                        </div>
+
+			       	`).join("");
+		};
+
+
+		});
+
+
+
+
+
+	let allUsers = [];
+
+	const usersData = [
+		{
+			id:1,
+			name:"prabhat pandit",
+			age: 30,
+			salary: 45000,
+			city:"Bengaluru",
+			country:"India"
+		},
+		{
+			id:2,
+			name:"deepak sharma",
+			age: 30,
+			salary: 40000,
+			city:"Bhopal",
+			country:"India"
+		},
+		{
+			id:3,
+			name:"john doe",
+			age: 23,
+			salary: 30000,
+			city:"London",
+			country:"England"
+		},
+		{
+			id:4,
+			name:"bobin son",
+			age: 35,
+			salary: 25000,
+			city:"new york",
+			country:"USA"
+		},
+		{
+			id:5,
+			name:"pooja kumari jha",
+			age: 28,
+			salary: 50000,
+			city:"Delhi",
+			country:"India"
+		}
+
+	];
+
+    // filter condition: filter → Condition-based selection (konsa element rahega, konsa nahi)
+	allUsers = usersData.filter(user => user.salary >= 40000);
+	console.log(allUsers);
+
+    let transformUserData = [];
+
+    // map → Transformation (element ko modify karke naye form mein laana)
+	transformUserData = usersData.map(user => ({
+         ...user,
+         profile:"Developer",
+         status:"active",
+         alive:true,
+         marital_status:"single",
+	}));
+
+	console.log(transformUserData);
+
+	</script>
+
+</body>
+</html>
