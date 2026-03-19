@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container mt-4 mb-4">
+
+ 	<div class="text-center mt-5 mb-5">
+			<h1>JavaScript Project for Beginners: API Fetch + Search + Error Handling (Step-by-Step)
+			</h1>
+	</div>
+
+ 	<div class="row justify-content-center" id="dataDiv"></div>
+ 	<div class="error" id="error"></div>
+   <div class="loading" id="loading"></div>
+ </div>
+
+
+ <script>
+
+    const dataDiv = document.querySelector("#dataDiv");
+ 	 const errorMsg = document.querySelector("#error");
+    const loading = document.querySelector("#loading");
+
+ 	 const fetchAPI = async () =>{
+
+         const url = `https://jsonplaceholder.typicode.com/users`;
+
+         // Reset UI
+         errorMsg.innerText = "";
+         loading.innerHTML = `<h1 class="text-muted">Loading Data Please Wait...</h1>`;
+         dataDiv.innerHTML = "";
+
+         try{
+
+               const response = await fetch(url);
+
+               if(!response.ok){
+                  throw new Error("Something Went Wrong. Please Try Again Later");
+               }
+
+               const res = await response.json();
+               renderData(res);
+         }
+         catch(error){
+            console.error(error);
+            errorMsg.innerText = `
+                     <h5 class="text-danger">
+                        Network issue. Please check your connection and try again.
+                     </h5>`;
+         }
+         finally{
+            loading.innerHTML = "";
+         }
+
+ 	 };
+    
+    // Calling the function here when Page Loads or Refresh
+ 	 fetchAPI();
+
+    function renderData(users){
+       
+       if(!users || users.length === 0){
+          dataDiv.innerHTML = 
+            `<h1 class="text-center text-muted">No User Found</h1>`;
+            return;
+       }
+
+       dataDiv.innerHTML = users.map(user => `
+           <div class="col-lg-3 col-xxl-3 col-md-6 mt-3 mb-3">
+             <div class="card shadow-lg p-3 h-100">
+               <div class="card-body">
+                 <h4 class="card-title">${user.name}</h4>
+                 <p>User Name: ${user.username}</p>
+                 <p>E-mail: ${user.email}</p>
+                 <p>City: ${user?.address?.city ?? "City Not Found"}</p>
+                 <p>Address: ${user?.address?.street ?? "Address Not Found" }</p>
+                 <p>Website: 
+                 <a href="https://${user.website}" rel="noopener noreferrer" target="_blank" class="btn btn-sm btn-info text-decoration-none text-muted">
+                     Visit Website
+                 </a>
+                 </p>
+               </div>
+             </div>
+           </div>
+       `).join("");
+
+    }
+ </script>
+
+</body>
+</html>
