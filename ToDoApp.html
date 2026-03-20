@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Code With Er. Prabhat Pandit</title>
+	<!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .delete-btn{
+    	position: absolute;
+        top: 4px;
+        float: right;
+        right: 10px;
+        z-index: 999;
+    }
+    .view-btn{
+    	position: absolute;
+        top: 4px;
+        float: right;
+        right: 80px;
+        z-index: 999;
+    }
+    </style>
+</head>
+<body>
+
+	<div class="container mt-4 mb-4">
+
+		<div class="text-center mt-5 mb-5">
+			<h1>JavaScript Project for Beginners: To-Do App (Step-by-Step)
+			</h1>
+	    </div>
+
+		<div class="input-group w-50 mx-auto">
+		  <input 
+		    type="text" 
+		    class="form-control p-2" 
+		    placeholder="Enter Your Task..." 
+		    id="inputTask"
+		>
+		<button id="addTaskBtn" class="btn btn-success">Add Task</button>
+		</div>
+		<div class="task" id="task"></div>
+	</div>
+
+	<script>
+		
+		document.addEventListener("DOMContentLoaded", function(){
+
+         const addTaskBtn = document.querySelector("#addTaskBtn");
+         const tasks = document.querySelector("#task");
+         let input = document.querySelector("#inputTask");
+
+
+
+         const taskArray = [];
+
+         addTaskBtn.addEventListener("click", function(){
+
+         	let inputText = input.value.trim();
+
+         	if(inputText === "") return;
+
+         	taskArray.push({
+         		id: Date.now(),
+         		task:inputText
+         	});
+
+         	console.log(taskArray);
+         	addTasks(taskArray);
+            input.value = "";
+         });
+
+         
+         function addTasks(todos){
+
+         	if(!todos || todos.length === 0){
+               tasks.innerHTML = `
+               	<div class="text-center text-muted mt-5 mb-5">
+                  <h1>Please Add Your New Tasks or Todos Here</h1>
+               	  <img src="Empty to-do list waiting for tasks.png" class="mx-auto" width="500">
+               	</div>
+               `;
+               return;
+         	}
+
+
+         	tasks.innerHTML = todos.map(t => `
+              <div class="task-container mt-2 w-50 mx-auto mb-2">
+                 <ul class="list-group">
+                   <li class="list-group-item bg-ligh">
+                    ${capitalizeString(t.task)} 
+         		    <button data-id="${t.id}" class="btn btn-danger btn-sm delete-btn">
+         		    Delete
+         		    </button>
+         		    <button data-id="${t.id}" class="btn btn-success btn-sm view-btn">
+         		    View Task
+         		    </button>
+                   </li>
+                 </ul>
+              </div>
+         `).join("");
+         }
+
+
+         const capitalizeString = (str) =>{
+
+          if(!str || str.length === 0) return "Nothing To Do";
+
+          return str.split(" ").map(word => word[0].toUpperCase() + word.slice(1)).join(" ");
+
+         };
+
+
+	tasks.addEventListener("click", function(e){
+		if(e.target.classList.contains("delete-btn")){
+		
+            const id = Number(e.target.dataset.id);
+
+            const index = taskArray.findIndex(t => t.id === id);
+
+             // “agar -1 nahi hai → matlab element mil gaya hai”
+             // Tu yeh bhi likh sakta hai. if(index !== -1) 👉 Same kaam karta hai. 0 > -1: true
+            const grant = confirm("Are You Sure you want to delete this task");
+            if(grant){
+            	if(index !== -1){
+            	taskArray.splice(index, 1);
+            	addTasks(taskArray);
+            }
+            }
+		}
+	});
+
+	tasks.addEventListener("click", function(e){
+		if(e.target.classList.contains("view-btn")){
+		
+            const id = Number(e.target.dataset.id);
+
+            // find poora object return karta hai jo condition match kare
+            const taskObj = taskArray.find(t => t.id === id);
+            console.log(taskObj);
+            // Safe way (pro level):
+            if(taskObj){
+              alert(taskObj.task);
+            }
+		}
+	});
+
+
+        addTasks(taskArray);
+
+		});
+
+
+
+
+		        // alert("Hi");
+                // console.log(e.target.getAttribute("data-id"));
+                // console.log(e.target.dataset.id);
+
+
+
+        const tasks = [
+         	{id:1, task:"Bring Milk for Coffee"},
+         	{id:2, task:"Cycling for Two ours"},
+         	{id:3, task:"Go To The Gym"},
+         	{id:4, task:"Solve Suduko for one hours"},
+         	{id:5, task:"Coding for Two hours"},
+         	{id:6, task:"Gym"},
+         	{id:7, task:"Gym"},
+         ];
+
+         // poora object return karta hai jo condition match kare
+         // only first occurrence or pehla match. Jaise hi pehla match milta hai → wahi return karke ruk jaata hai
+         // ❌ Baaki matches ignore ho jaate hain:
+
+         let id = 2;
+         const taskObj = tasks.find(t => t.id === id); // poora object return karta hai jo condition match kare
+         console.log(taskObj);
+         console.log(taskObj.task);
+
+         // 🔥 Agar tujhe sab chahiye: 👉 .filter() use karega
+ 
+         const givenTask = "Gym";
+         const findAllTasks = tasks.filter(t => t.task === givenTask);
+         console.log(findAllTasks);
+         console.log(findAllTasks[0].task);
+         console.log(findAllTasks[1].task);
+
+
+         // ⚠️ Ek important cheez:
+         // Agar .find() ko kuch nahi mila: taskObj = undefined
+         // 👉 Fir: taskObj.task ❌ error dega
+         // 💡 Safe way (pro level):
+         // if(taskObj){
+         //  alert(taskObj.task);
+         // }
+
+
+	</script>
+
+</body>
+</html>
